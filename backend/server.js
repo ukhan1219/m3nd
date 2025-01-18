@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 
 const app = express();
 const MONGODB_URI = process.env.MONGODB_URI;
-const PORT = 3000;
+const PORT = 3001;
 
 let db, usersCollection;
 
