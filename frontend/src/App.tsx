@@ -1,20 +1,16 @@
-// THIS IS THE MAIN LANDING PAGE (home page)
-
+// DO NOT CHANGE
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
 } from "react-router-dom";
-import { useState } from 'react'
 import './App.css'
 import AboutPage from "./pages/AboutPage"
 import LandingPage from "./pages/LandingPage"
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <Router>
