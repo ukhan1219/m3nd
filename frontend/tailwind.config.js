@@ -11,9 +11,19 @@ export default {
       'lavender':'#B6BDE7',
       'lightblue': '#6F8BC5',
       'midblue':'#3B4E6D',
-      'darkblue':'#434E16'
+      'darkblue':'#262F50'
     },
-    extend: {},
+    fontFamily: {
+      Sora: ['Sora', 'serif'],
+      Kanit: ['Kanit', 'serif'],
+      Dongle: ['Dongle', 'serif'],
+    },
+    extend: {
+      screens: {
+        'min-2000': '2000px',
+    },
+
+    },
   },
   plugins: [],
 }
