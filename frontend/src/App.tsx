@@ -8,6 +8,7 @@ import {
 import './App.css'
 import AboutPage from "./pages/AboutPage"
 import LandingPage from "./pages/LandingPage"
+import LoginPage from "./pages/LoginPage";
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          {/* <Route path="/login" element={<LoginPage />} /> */}
+          <Route path="/login" element={<LoginPage />} />
           {/* <Route path="/register" element={<RegisterPage />} /> */}
           <Route path="/about" element={<AboutPage/>}/>
           {/* <Route
