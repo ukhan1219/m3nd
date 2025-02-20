@@ -10,13 +10,15 @@ import NavigationBar from "./components/NavigationBar";
 import AboutPage from "./pages/AboutPage"
 import LandingPage from "./pages/LandingPage"
 import LoginPage from "./pages/LoginPage";
+import FAQaccordion from "./components/FAQaccordion"
 
 
 function App() {
   return (
     <>
-      <NavigationBar />
-
+      
+      <FAQaccordion />
+      
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />

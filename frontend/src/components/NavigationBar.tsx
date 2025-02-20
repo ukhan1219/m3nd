@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../assets/logo.png";
 
-const page = () => {
+const navbar = () => {
     const navButtons = "text-[#262f50] text-sm px-4 py-2 rounded-lg hover:text-[#1a1a35]"
 
     return (
@@ -35,4 +35,4 @@ const page = () => {
     )
 }
 
-export default page;
+export default navbar;
