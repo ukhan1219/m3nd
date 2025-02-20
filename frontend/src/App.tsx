@@ -6,6 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import './App.css'
+import NavigationBar from "./components/NavigationBar";
 import AboutPage from "./pages/AboutPage"
 import LandingPage from "./pages/LandingPage"
 import LoginPage from "./pages/LoginPage";
@@ -14,6 +15,8 @@ import LoginPage from "./pages/LoginPage";
 function App() {
   return (
     <>
+      <NavigationBar />
+
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
