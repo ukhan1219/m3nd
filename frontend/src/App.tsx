@@ -11,13 +11,14 @@ import AboutPage from "./pages/AboutPage"
 import LandingPage from "./pages/LandingPage"
 import LoginPage from "./pages/LoginPage";
 import FAQaccordion from "./components/FAQaccordion"
+import Carousel from "./components/Carousel"
 
 
 function App() {
   return (
     <>
       
-      <FAQaccordion />
+      <Carousel />
       
       <Router>
         <Routes>
