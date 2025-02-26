@@ -1,13 +1,19 @@
 import React from "react";
 import { useState } from "react";
+import CrewCard from "./CrewCard";
 
 const carousel = () => {
     const[index, setIndex] = useState(0);
 
     // temporary
-    const items = ["1", "2", "3", "4", "5"];
-    const itemsPerView = 3;
-    const length = items.length;
+    const crewMembers = [
+        { name : "Mel", role: "Frontend", description: "a"},
+        { name : "Lily", role: "Frontend", description: "b"},
+        { name : "Shin", role: "Frontend", description: "c"},
+        { name : "Usman", role: "Backend", description: "d"},
+        { name : "Jon", role: "Backend", description: "e"},
+    ];
+    const length = crewMembers.length;
 
     const handlePrevious = () => {
         setIndex((prevIndex) => (prevIndex - 1 + length) % length);
@@ -18,9 +24,9 @@ const carousel = () => {
     };
 
     const visibleItems = [
-        items[index % length],
-        items[(index + 1) % length],
-        items[(index + 2) % length]
+        crewMembers[index % length],
+        crewMembers[(index + 1) % length],
+        crewMembers[(index + 2) % length]
     ];
 
     return(
@@ -34,11 +40,9 @@ const carousel = () => {
             </button>
 
             {/* CAROUSEL ITEMS */}
-            <div className="flex space-x-4 bg-gray-100 p-4 rounded-lg">
-                {visibleItems.map((item, i) => (
-                    <div key={i} className="p-4 bg-black shadow-md rounded-lg">
-                        {item}
-                    </div>
+            <div className="flex space-x-10 bg-gray-100 p-4 rounded-lg">
+                {visibleItems.map((member, i) => (
+                    <CrewCard key={i} name={member.name} role={member.role} description={member.description} />
                 ))}
             </div>
 

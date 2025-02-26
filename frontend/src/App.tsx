@@ -13,13 +13,14 @@ import LoginPage from "./pages/LoginPage";
 import FAQaccordion from "./components/FAQaccordion"
 import Carousel from "./components/Carousel"
 import Footer from "./components/Footer"
+import CrewCard from "./components/CrewCard"
 
 
 function App() {
   return (
     <>
       
-      <Footer />
+      <Carousel />
       
       <Router>
         <Routes>
