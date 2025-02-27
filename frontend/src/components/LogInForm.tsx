@@ -21,7 +21,7 @@ const logInForm = () => {
             <div className="bg-[#B6BDE7] p-8 rounded-2xl outline-black shadow-lg w-96">
                 <h2 className="text-2xl font-bold text-center mb-4 text-black">Log In</h2>
 
-                {/* GOOGLE LOGIN */}
+                {/* GOOGLE LOG IN */}
                 <input
                     type="text"
                     value={googleLogin}
@@ -31,7 +31,7 @@ const logInForm = () => {
                     readOnly
                 />
 
-                <span> ━━━━━━━━━━━━━━━━━━━━ </span>
+                <span className="text-[#3B4E6D]"> ━━━━━━━━━━━━━━━━━━━━ </span>
 
                 <form onSubmit={handleLogin}>
                     {/* EMAIL */}
@@ -64,7 +64,7 @@ const logInForm = () => {
                     </button>
                 </form>
 
-                <span> ━━━━━━━━━━━━━━━━━━━━ </span>
+                <span className="text-[#3B4E6D]"> ━━━━━━━━━━━━━━━━━━━━ </span>
 
                 {/* SIGN UP LINK*/}
                 <p className="text-center mt-4">

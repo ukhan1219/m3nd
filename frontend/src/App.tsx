@@ -15,13 +15,13 @@ import Carousel from "./components/Carousel"
 import Footer from "./components/Footer"
 import CrewCard from "./components/CrewCard"
 import LogInForm from "./components/LogInForm"
-
+import SignUpForm from "./components/SignUpForm"
 
 function App() {
   return (
     <>
       
-      <LogInForm />
+      <SignUpForm />
       
       <Router>
         <Routes>
