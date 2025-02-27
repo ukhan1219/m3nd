@@ -22,7 +22,8 @@ function App() {
   return (
     <>
       
-      <JournalEntry />
+      <JournalEntry isNewEntry={true}/>
+      <JournalEntry isNewEntry={false}/>
       
       <Router>
         <Routes>

@@ -1,9 +1,15 @@
 import React from "react";
 import { useState } from "react";
 
-const journalEntry = () => {
+interface JournalEntryProps {
+    isNewEntry: boolean;
+}
+
+const journalEntry = ({isNewEntry}: JournalEntryProps) => {
     const [entry, setEntry] = useState("");
     const [isEditing, setIsEditing] = useState(true);
+
+    const editOrSave = "px-6 py-2 bg-[#3B4E6D] text-white rounded-3xl w-24";
 
     return(
         <div className="flex justify-center items-center">
@@ -33,12 +39,27 @@ const journalEntry = () => {
                 </div>
 
                 <div className="flex justify-center mt-4 space-x-4">
-                    {/* EDIT */}
-                    <button
-                        className="px-6 py-2 bg-[#3B4E6D] text-white rounded-3xl w-24"
-                        onClick={() => setIsEditing(true)}>
+
+                    {/*
+                        PREVIOUS ENTRY - EDIT
+                        NEW ENTRY - SAVE
+                    */}
+
+                    {isNewEntry ? (
+                        <button
+                        className={editOrSave}
+                        onClick={() => setIsEditing(false)}
+                        >
+                            Save
+                        </button>
+                    ) : (
+                        <button
+                        className={editOrSave}
+                        onClick={() => setIsEditing(true)}
+                        >
                             Edit
-                    </button>
+                        </button>
+                    )}
 
                     {/* DONE */}
                     <button
