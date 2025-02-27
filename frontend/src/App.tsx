@@ -14,13 +14,14 @@ import FAQaccordion from "./components/FAQaccordion"
 import Carousel from "./components/Carousel"
 import Footer from "./components/Footer"
 import CrewCard from "./components/CrewCard"
+import LogInForm from "./components/LogInForm"
 
 
 function App() {
   return (
     <>
       
-      <Carousel />
+      <LogInForm />
       
       <Router>
         <Routes>
