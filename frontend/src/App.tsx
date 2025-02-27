@@ -16,12 +16,13 @@ import Footer from "./components/Footer"
 import CrewCard from "./components/CrewCard"
 import LogInForm from "./components/LogInForm"
 import SignUpForm from "./components/SignUpForm"
+import JournalEntry from "./components/JournalEntry"
 
 function App() {
   return (
     <>
       
-      <SignUpForm />
+      <JournalEntry />
       
       <Router>
         <Routes>
