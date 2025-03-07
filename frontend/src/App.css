@@ -8,9 +8,7 @@
 @import "tailwindcss";
 
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -65,7 +63,7 @@
 
 .nav-link {
   position: relative;
-  color: #262f50; /* Dark blue */
+  color: #262f50;
   text-decoration: none;
   font-weight: normal;
   transition: color 0.3s ease;
@@ -86,6 +84,32 @@
 }
 
 .nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link2 {
+  position: relative;
+  color: #B9C3DA;
+  text-decoration: none;
+  font-weight: normal;
+  transition: color 0.3s ease;
+}
+
+.nav-link2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px; 
+  @media only screen and (max-width: 767px) {
+    bottom: 10px; 
+  }
+  width: 0;
+  height: 2px;
+  background-color: #B9C3DA; 
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link2:hover::after {
   width: 100%;
 }
 

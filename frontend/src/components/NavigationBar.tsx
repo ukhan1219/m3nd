@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import logo from "../assets/mend-logo.svg";
 
@@ -40,7 +40,7 @@ const Navbar = () => {
       <ul
         className={`fixed top-0 right-0 w-full h-full bg-lavender text-darkblue flex flex-col items-center justify-start space-y-8 transform transition-all duration-500 ease-in-out ${nav ? "translate-x-0" : "translate-x-full"} md:hidden`}
       >
-        <li className="absolute top-4 right-6">
+        <li className="absolute top-6 right-6">
           <AiOutlineClose size={28} className="cursor-pointer" onClick={handleNav} />
         </li>
         <li className="text-2xl translate-y-10">
