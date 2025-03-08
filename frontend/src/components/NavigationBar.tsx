@@ -10,11 +10,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-lavender text-darkblue p-4 font-Dongle fixed top-0 left-0 w-full shadow-md z-50">
+    <nav className="bg-lightlavender text-darkblue p-4 font-Dongle fixed top-0 left-0 w-full shadow-[#A0ABE8] shadow-md z-50">
       <div className="px-4 2xl:px-12 mx-auto flex justify-between items-center">
         {/* LOGO */}
         <a href="/" className="flex items-center logo-svg fill-darkblue hover:text-midblue">
-          <img src={logo} alt="Logo" className="h-12" />
+          <img src={logo} alt="Logo" className="h-12 hover:opacity-80 transition-all duration-300 ease-in-out" />
         </a>
 
         {/* Desktop Menu */}
@@ -38,27 +38,27 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <ul
-        className={`fixed top-0 right-0 w-full h-full bg-lavender text-darkblue flex flex-col items-center justify-start space-y-8 transform transition-all duration-500 ease-in-out ${nav ? "translate-x-0" : "translate-x-full"} md:hidden`}
+        className={`fixed top-0 right-0 w-full h-full bg-lightlavender text-darkblue flex flex-col items-center justify-start space-y-8 transform transition-all duration-500 ease-in-out ${nav ? "translate-x-0" : "translate-x-full"} md:hidden`}
       >
         <li className="absolute top-6 right-6">
           <AiOutlineClose size={28} className="cursor-pointer" onClick={handleNav} />
         </li>
-        <li className="text-2xl translate-y-10">
+        <li className="text-2xl translate-y-20">
           <a href="/" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">Home</a>
         </li>
-        <li className="text-2xl translate-y-10">
+        <li className="text-2xl translate-y-20">
           <a href="/about" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">About</a>
         </li>
-        <li className="text-2xl translate-y-10">
+        <li className="text-2xl translate-y-20">
           <a href="/journals" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">Journals</a>
         </li>
         <li>
-          <button className="translate-y-10 border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-4xl hover:bg-midblue">
+          <button className="translate-y-20 border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-4xl hover:bg-midblue">
             Log in
           </button>
         </li>
         <li>
-          <button className="translate-y-10 border-2 border-darkblue transition-all duration-[150ms] text-darkblue hover:text-pearl px-10 py-0 rounded-full text-4xl hover:bg-darkblue">
+          <button className="translate-y-20 border-2 border-darkblue transition-all duration-[150ms] text-darkblue hover:text-pearl px-8 py-0 rounded-full text-4xl hover:bg-darkblue">
             Sign up
           </button>
         </li>

@@ -9,9 +9,10 @@ export default {
     colors: {
       'pearl': '#F0EDF7',
       'lavender':'#B6BDE7',
+      'lightlavender':"#D5DDFA",
       'lightblue': '#6F8BC5',
       'midblue':'#3B4E6D',
-      'darkblue':'#262F50'
+      'darkblue':'#262F50',
     },
     fontFamily: {
       Sora: ['Sora', 'serif'],
