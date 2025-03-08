@@ -22,12 +22,16 @@ const Navbar = () => {
           <a href="/" className="nav-link hover:text-midblue">Home</a>
           <a href="/about" className="nav-link hover:text-midblue">About</a>
           <a href="/journals" className="nav-link hover:text-midblue">Journals</a>
+          <a href="/login">
           <button className="border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-midblue">
             Log in
           </button>
+          </a>
+          <a href="/signup">
           <button className="border-2 border-darkblue transition-all duration-[150ms] text-darkblue hover:text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-darkblue">
             Sign up
           </button>
+          </a>
         </div>
 
         {/* Mobile Menu Icon */}

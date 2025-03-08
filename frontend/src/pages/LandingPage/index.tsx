@@ -45,14 +45,16 @@ const LandingPage = () => {
           {/* Hero Section */}
           <div className="flex flex-col lg:flex-row items-center justify-center max-w-6xl py-16 px-6 max-lg:gap-8 lg:gap-28">
               <div className="max-sm:w-64 w-96 h-auto">
-                  <img src={mainImage} alt="Mend_Hero" className="rounded-[48px] shadow-lg" />
+                  <img src={mainImage} alt="Mend_Hero" className="rounded-3xl shadow-lg" />
               </div>
               <div className="max-[425px]:w-auto mx-auto max-xl:w-96 xl:w-[500px] text-darkblue font-Kanit">
                   <h2 className="text-3xl font-bold text-left text-darkblue mb-4">Why is Mend Important?</h2>
                   <p className="text-lg mb-6 text-left">
                     Mend is a digital platform designed to help individuals heal. This app provides a safe and supportive environment for users to journal their thoughts and emotions, reflect on their experiences, and develop healthy habits. With its user-friendly interface and use of AI to analyze behavior, Mend empowers individuals to take control of their mental health and cultivate a more positive and resilient mindset.                  
                   </p>
-                  <button className="bg-midblue text-pearl lg:flex gl:justify-start px-8 py-2 rounded-full shadow-md">Learn More</button>
+                  <a href="/about">
+                    <button className="bg-midblue hover:bg-darkblue transition-all duration-300 border-2 border-darkblue text-pearl lg:flex gl:justify-start px-8 py-2 rounded-full shadow-md">Learn More</button>
+                  </a>
               </div>
           </div>
 

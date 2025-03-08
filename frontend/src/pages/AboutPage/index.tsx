@@ -1,10 +1,10 @@
 import React from 'react'
 import './styles.css'
 
-const page = () => {
+const about = () => {
   return (
     <div>page</div>
   )
 }
 
-export default page
+export default about
