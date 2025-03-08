@@ -62,7 +62,7 @@ const LandingPage = () => {
               <div className="bg-midblue max-sm:w-full sm:w-7/12 lg:w-6/12 rounded-3xl max-w-3xl font-Kanit text-left mx-auto font-light border-4 border-darkblue">
                 <FAQItem question="How does Mend analyze my journal entries?" answer="Mend uses AI to detect patterns in your writing and provide insights to help you build healthy habits and coping strategies." index={0} isLast={false} />
                 <FAQItem question="Is my data private and secure?" answer="Yes! Your journal entries are encrypted and stored securely to ensure your privacy." index={1} isLast={false} />
-                <FAQItem question="Can I use Mend for free?" answer="Yes, Mend offers a free plan with essential features, as well as premium options for additional insights and customization." index={2} isLast={true} />
+                <FAQItem question="Can I use Mend for free?" answer="Mend is completely free, ensuring everyone has access to the tools they need for self-improvement and emotional well-being. " index={2} isLast={true} />
               </div>
 
 
