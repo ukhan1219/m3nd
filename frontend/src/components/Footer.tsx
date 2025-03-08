@@ -1,4 +1,3 @@
-import React from "react";
 import logo2 from "../assets/mend-logo-2.svg";
 
 const Footer = () => {
