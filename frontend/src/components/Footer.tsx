@@ -2,8 +2,7 @@ import { useState } from "react";
 import logo2 from "../assets/mend-logo-2.svg";
 
 const Footer = () => {
-  const [user, setUser] = useState(null); // Assuming you manage user state here
-
+  const [user, setUser] = useState(null); 
   return (
     <div className="w-full py-8 max-sm:py-5 max-sm:px-5 px-10 flex flex-col items-center gap-4 bg-darkblue text-pearl">
       <a href="/" className="flex justify-center hover:opacity-80 transition-all duration-300 ease-in-out">
