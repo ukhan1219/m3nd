@@ -4,13 +4,14 @@ import logo from "../assets/mend-logo.svg";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
+  const [user, setUser] = useState(null);
 
   const handleNav = () => {
     setNav(!nav);
   };
 
   return (
-    <nav className="bg-lightlavender text-darkblue p-4 font-Dongle fixed top-0 left-0 w-full shadow-[#A0ABE8] shadow-md z-50">
+    <nav className="bg-lightlavender text-darkblue p-4 font-Dongle fixed top-0 left-0 w-full z-50">
       <div className="px-4 2xl:px-12 mx-auto flex justify-between items-center">
         {/* LOGO */}
         <a href="/" className="flex items-center logo-svg fill-darkblue hover:text-midblue">
@@ -21,17 +22,21 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6 text-2xl 2xl:text-3xl font-normal">
           <a href="/" className="nav-link hover:text-midblue">Home</a>
           <a href="/about" className="nav-link hover:text-midblue">About</a>
-          <a href="/journals" className="nav-link hover:text-midblue">Journals</a>
-          <a href="/login">
-          <button className="border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-midblue">
-            Log in
-          </button>
-          </a>
-          <a href="/signup">
-          <button className="border-2 border-darkblue transition-all duration-[150ms] text-darkblue hover:text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-darkblue">
-            Sign up
-          </button>
-          </a>
+          {user && <a href="/journals" className="nav-link hover:text-midblue">Journals</a>}
+          {!user ? (
+            <>
+              <a href="/login">
+                <button className="border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-midblue">
+                  Log in
+                </button>
+              </a>
+              <a href="/signup">
+                <button className="border-2 border-darkblue transition-all duration-[150ms] text-darkblue hover:text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-darkblue">
+                  Sign up
+                </button>
+              </a>
+            </>
+          ) : null}
         </div>
 
         {/* Mobile Menu Icon */}
@@ -53,19 +58,29 @@ const Navbar = () => {
         <li className="text-2xl translate-y-20">
           <a href="/about" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">About</a>
         </li>
-        <li className="text-2xl translate-y-20">
-          <a href="/journals" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">Journals</a>
-        </li>
-        <li>
-          <button className="translate-y-20 border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-4xl hover:bg-midblue">
-            Log in
-          </button>
-        </li>
-        <li>
-          <button className="translate-y-20 border-2 border-darkblue transition-all duration-[150ms] text-darkblue hover:text-pearl px-8 py-0 rounded-full text-4xl hover:bg-darkblue">
-            Sign up
-          </button>
-        </li>
+        {user && (
+          <li className="text-2xl translate-y-20">
+            <a href="/journals" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">Journals</a>
+          </li>
+        )}
+        {!user ? (
+          <>
+            <li>
+              <a href="/login">
+                <button className="translate-y-20 border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-4xl hover:bg-midblue">
+                  Log in
+                </button>
+              </a>
+            </li>
+            <li>
+              <a href="/signup">
+                <button className="translate-y-20 border-2 border-darkblue transition-all duration-[150ms] text-darkblue hover:text-pearl px-8 py-0 rounded-full text-4xl hover:bg-darkblue">
+                  Sign up
+                </button>
+              </a>
+            </li>
+          </>
+        ) : null}
       </ul>
     </nav>
   );

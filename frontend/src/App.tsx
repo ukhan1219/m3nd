@@ -12,6 +12,7 @@ import Footer from "./components/Footer";
 import AboutPage from "./pages/AboutPage"
 import LandingPage from "./pages/LandingPage"
 import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             {/* <Route path="/register" element={<RegisterPage />} /> */}
             <Route path="/about" element={<AboutPage/>}/>
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/signup" element={<SignupPage/>}/>
             {/* <Route
               path="/profile"
               element={
