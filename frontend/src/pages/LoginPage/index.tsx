@@ -23,13 +23,15 @@ const LogIn = () => {
           <div className="flex-grow border-b"></div>
         </div>
 
-        <div className="flex flex-col space-y-2">
-          <p className="flex text-darkblue font-Dongle text-3xl md:text-4xl">Email</p>
-          <input 
-            type="email" 
-            placeholder="Email" 
-            className="w-full p-2 border-2 border-lightblue bg-lightlavender font-Sora rounded-xl text-darkblue md:p-3 md:text-lg" 
-          />
+        <div className="flex flex-col ">
+          <div className="pb-2">
+            <p className="flex bottom-0 text-darkblue font-Dongle text-3xl md:text-4xl">Email</p>
+            <input 
+              type="email" 
+              placeholder="Email" 
+              className="w-full p-2 border-2 border-lightblue bg-lightlavender font-Sora rounded-xl text-darkblue md:p-3 md:text-lg" 
+            />
+          </div>
           
           <p className="flex text-darkblue font-Dongle text-3xl md:text-4xl">Password</p>
           <div className="relative w-full">
