@@ -13,7 +13,7 @@ const Footer = () => {
           <a href="/" className="hover:text-[#B9C3DA] nav-link2">HOME</a><p className="font-extrabold">{" | "}</p>
           <a href="/about" className="hover:text-[#B9C3DA] nav-link2">ABOUT</a><p className="font-extrabold">{" | "}</p>
           {user ? (
-            <a href="/journals" className="hover:text-[#B9C3DA] nav-link2">JOURNALS</a>
+            <a href="/dashboard" className="hover:text-[#B9C3DA] nav-link2">JOURNALS</a>
           ) : (
             <>
               <a href="/login" className="hover:text-[#B9C3DA] nav-link2">LOGIN</a><p className="font-extrabold">{" | "}</p>

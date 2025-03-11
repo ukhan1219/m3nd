@@ -60,7 +60,7 @@ const Navbar = () => {
         </li>
         {user && (
           <li className="text-2xl translate-y-20">
-            <a href="/journals" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">Journals</a>
+            <a href="/dashboard" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">Journals</a>
           </li>
         )}
         {!user ? (

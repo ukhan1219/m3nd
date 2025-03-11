@@ -13,6 +13,7 @@ import AboutPage from "./pages/AboutPage"
 import LandingPage from "./pages/LandingPage"
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -23,7 +24,6 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
-            {/* <Route path="/register" element={<RegisterPage />} /> */}
             <Route path="/about" element={<AboutPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/signup" element={<SignupPage/>}/>
@@ -35,14 +35,14 @@ function App() {
                 </ProtectedRoute>
               }
             /> */}
-            {/* <Route
+             <Route
               path="/dashboard"
               element={
-                <ProtectedRoute>
+                
                   <Dashboard />
-                </ProtectedRoute>
+                
               }
-            /> */}
+            />
           </Routes>
         </Router>
 
