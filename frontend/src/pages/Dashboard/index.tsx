@@ -1,11 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { format, startOfMonth, getDaysInMonth, getDay } from "date-fns";
 import notebook from "../../assets/notebook.png";
 
 export function Dashboard() {
-  const [selected, setSelected] = useState<Date | null>(null);
-  const [currentDate, setCurrentDate] = useState(new Date());
+const [selected, setSelected] = useState<Date | null>(null);
+const [currentDate, setCurrentDate] = useState(new Date());
+
+  
+const navigate = useNavigate();
+
+const handleJournalClick = () => {
+  if (selected) {
+    navigate('/journal', { state: { date: selected } });
+  }
+};
 
   const handleSelect = (date: Date) => {
     if (selected && selected.getTime() === date.getTime()) {
@@ -110,12 +121,12 @@ export function Dashboard() {
                 onClick={() =>
                   handleSelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1))
                 }
-                className={`w-10 h-10 flex items-center justify-center mx-auto rounded-full transition-all 
+                className={`w-10 h-10 flex items-center justify-center mx-auto rounded-full transition-all
                 ${
                   selected?.getDate() === i + 1 &&
                   selected?.getMonth() === currentDate.getMonth()
                     ? "bg-darkblue text-pearl border-2 border-lightblue font-bold"
-                    : "bg-lightblue/30 hover:bg-midblue hover:text-pearl"
+                    : "bg-lightblue/30 hover:bg-midblue hover:text-pearl font-semibold"
                 }`}
 
               >
@@ -124,22 +135,17 @@ export function Dashboard() {
             ))}
           </div>
 
-          <div className="flex justify-center font-Sora text-md pb-8 pt-6 gap-4 mt-6">
-            <button
-              className={`px-6 py-2 bg-lightlavender hover:bg-midblue hover:text-pearl text-darkblue border-2 border-midblue font-semibold rounded-full duration-300 ${
-                selected ? "" : "opacity-50 pointer-events-none"
-              }`}
-            >
-              Journal!
-            </button>
+          <div className="flex justify-center font-Sora text-md pb-8 pt-6 mt-6">
+          <button
+            onClick={handleJournalClick}
+            className={`px-6 py-2 bg-midblue hover:bg-darkblue hover:text-pearl text-pearl border-2 border-midblue font-semibold rounded-full duration-300 ${
+              selected ? '' : 'opacity-50 pointer-events-none'
+            }`}
+          >
+            Journal!
+          </button>
+          
 
-            <button
-              className={`px-6 py-2 bg-midblue text-pearl font-semibold rounded-full shadow-md hover:bg-darkblue duration-300 transition ${
-                selected ? "" : "opacity-50 pointer-events-none"
-              }`}
-            >
-              Analyze
-            </button>
           </div>
         </div>
       </div>
@@ -147,3 +153,4 @@ export function Dashboard() {
   );
 }
 
+export default Dashboard

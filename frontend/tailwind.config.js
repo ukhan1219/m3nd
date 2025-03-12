@@ -23,6 +23,7 @@ export default {
     extend: {
       screens: {
         'min-2000': '2000px',
+        'max-430': '430px',
     },
 
     },
