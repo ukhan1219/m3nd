@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-lightlavender text-darkblue p-4 font-Dongle fixed top-0 left-0 w-full z-50">
+    <nav className="bg-lightlavender text-darkblue p-3 font-Dongle fixed top-0 left-0 w-full z-50">
       <div className="px-4 2xl:px-12 mx-auto flex justify-between items-center">
         {/* LOGO */}
         <a href="/" className="flex items-center logo-svg fill-darkblue hover:text-midblue">

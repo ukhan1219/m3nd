@@ -18,6 +18,7 @@ export default {
       Sora: ['Sora', 'serif'],
       Kanit: ['Kanit', 'serif'],
       Dongle: ['Dongle', 'serif'],
+      Solway: ['Solway', 'serif'],
     },
     extend: {
       screens: {
