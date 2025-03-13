@@ -6,25 +6,22 @@ import { format, startOfMonth, getDaysInMonth, getDay } from "date-fns";
 import notebook from "../../assets/notebook.png";
 
 export function Dashboard() {
-const [selected, setSelected] = useState<Date | null>(null);
+const [selected, setSelected] = useState<Date | null>(new Date());
 const [currentDate, setCurrentDate] = useState(new Date());
-
-  
+const handleSelect = (date: Date) => {
+  if (selected && selected.getTime() === date.getTime()) {
+    setSelected(null);
+  } else {
+    setSelected(date);
+  }
+};
 const navigate = useNavigate();
-
 const handleJournalClick = () => {
   if (selected) {
     navigate('/journal', { state: { date: selected } });
   }
 };
 
-  const handleSelect = (date: Date) => {
-    if (selected && selected.getTime() === date.getTime()) {
-      setSelected(null);
-    } else {
-      setSelected(date);
-    }
-  };
 
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const [year, month] = event.target.value.split('-').map(Number);
