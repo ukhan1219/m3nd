@@ -1,12 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Solway:wght@300;400;500;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import "tailwindcss";
 
+.font-outline-2 {
+  text-shadow:
+ -2px -2px 0 #F0EDF7,  
+  2px -2px 0 #F0EDF7,
+  -2px 2px 0 #F0EDF7,
+   2px 2px 0 #F0EDF7;
+}
+
+.font-outline-1 {
+  text-shadow:
+ -2px -2px 0 #262F50,  
+  2px -2px 0 #262F50,
+  -2px 2px 0 #262F50,
+   2px 2px 0 #262F50;
+}
+
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -15,12 +34,6 @@
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
@@ -44,4 +57,107 @@
 
 .read-the-docs {
   color: #888;
+}
+.solway-light {
+  font-family: "Solway", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.solway-regular {
+  font-family: "Solway", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.dongle-regular {
+  font-family: "Dongle", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-regular {
+  font-family: "Kanit", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sora-regular {
+  font-family: "Sora", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.nav-link {
+  position: relative;
+  color: #262f50;
+  text-decoration: none;
+  font-weight: normal;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px; 
+  @media only screen and (max-width: 767px) {
+    bottom: 10px; 
+  }
+  width: 0;
+  height: 2px;
+  background-color: #3B4E6D; 
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link2 {
+  position: relative;
+  color: #F0EDF7;
+  text-decoration: none;
+  font-weight: normal;
+  transition: color 0.3s ease;
+}
+
+.nav-link2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px; 
+  @media only screen and (max-width: 767px) {
+    bottom: 10px; 
+  }
+  width: 0;
+  height: 2px;
+  background-color: #B9C3DA; 
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link2:hover::after {
+  width: 100%;
+}
+
+.logo-svg {
+  fill: #262F50; 
+  transition: fill 0.3s ease-in-out;
+}
+
+.logo-svg:hover {
+  fill: #4A6FA5; 
+}
+
+.img-center {
+  width:auto !important;
+  display:flex !important;
+}
+
+.slick-dots button::before{
+  font-size: 18px !important;
+}
+.slick-dots li.slick-active button:before {
+  color: #262F50;   
+  font-size: 24px !important;  
 }
