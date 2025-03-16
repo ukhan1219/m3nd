@@ -8,7 +8,21 @@
 
 @import "tailwindcss";
 
+.font-outline-2 {
+  text-shadow:
+ -2px -2px 0 #F0EDF7,  
+  2px -2px 0 #F0EDF7,
+  -2px 2px 0 #F0EDF7,
+   2px 2px 0 #F0EDF7;
+}
 
+.font-outline-1 {
+  text-shadow:
+ -2px -2px 0 #262F50,  
+  2px -2px 0 #262F50,
+  -2px 2px 0 #262F50,
+   2px 2px 0 #262F50;
+}
 
 #root {
   margin: 0 auto;
@@ -133,4 +147,17 @@
 
 .logo-svg:hover {
   fill: #4A6FA5; 
+}
+
+.img-center {
+  width:auto !important;
+  display:flex !important;
+}
+
+.slick-dots button::before{
+  font-size: 18px !important;
+}
+.slick-dots li.slick-active button:before {
+  color: #262F50;   
+  font-size: 24px !important;  
 }

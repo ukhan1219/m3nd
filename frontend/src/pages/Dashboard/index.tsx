@@ -32,11 +32,11 @@ const handleJournalClick = () => {
   const firstDayOfWeek = getDay(startOfMonth(currentDate));
 
   return (
-    <div className="flex flex-col md:flex-row bg-lavender max-[430px]:bg-midblue justify-center min-h-screen max-[430px]:p-0 p-6 md:p-12 shadow-lg sm:pt-32 md:pt-28 max-[430px]:pt-0 max-[400px]:pt-20">
-      <div className="flex flex-col md:flex-row w-auto rounded-xl border-[3px] max-[430px]:border-none max-[430px]:rounded-none border-darkblue overflow-hidden shadow-md sm:max-h-[40rem]">
+    <div className="flex flex-col md:flex-row bg-lavender max-[473px]:bg-midblue justify-center max-[820px]:items-center min-h-[calc(100vh-10rem)] max-[473px]:p-0 p-6 md:p-12 shadow-lg max-sm:pt-24 sm:pt-32 md:pt-28 max-[473px]:pt-20 max-[400px]:pt-20">
+      <div className="flex flex-col md:flex-row w-auto rounded-xl border-[3px] max-[473px]:border-none max-[473px]:rounded-none border-darkblue overflow-hidden shadow-md md:max-h-[40rem] max-md:max-h-[44rem]">
         <div className="bg-midblue text-pearl text-left p-6 md:w-4/12 lg:w-1/3">
           <div>
-            <h1 className="text-3xl font-bold font-Solway">MendBoard</h1>
+            <h1 className="text-3xl font-bold font-Solway max-md:text-center ">MendBoard</h1>
             <div className="max-md:hidden">
               <hr className="my-4 border-pearl border-2" />
               <h2 className="text-md font-semibold font-Sora mb-4">Recent Journals:</h2>
@@ -56,7 +56,7 @@ const handleJournalClick = () => {
           </div>
         </div>
 
-        <div className="flex-1 p-6 max-[430px]:pl-4 max-[375px]:pl-2 sm:p-12 bg-pearl">
+        <div className="flex-1 p-6 max-[473px]:pl-4 max-[375px]:pl-2 sm:p-12 bg-pearl">
           <h2 className="text-darkblue font-Sora text-2xl font-bold mb-4">Select a date</h2>
 
           <div className="flex items-center justify-between mb-4">
@@ -99,9 +99,9 @@ const handleJournalClick = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-7 max-[430px]:gap-x-6 gap-4 font-Sora max-[430px]:pl-0 max-sm:text-sm text-center text-darkblue">
+          <div className="grid grid-cols-7 max-[473px]:gap-x-6 gap-4 font-Sora max-[473px]:pl-0 max-sm:text-sm text-center text-darkblue">
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-              <span key={day} className="font-semibold max-[430px]:pl-1">
+              <span key={day} className="font-semibold max-[473px]:pl-1">
                 {day}
               </span>
             ))}

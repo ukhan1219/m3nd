@@ -4,9 +4,9 @@ import logo2 from "../assets/mend-logo-2.svg";
 const Footer = () => {
   const [user, setUser] = useState(null); 
   return (
-    <div className="w-full py-8 max-sm:py-5 max-sm:px-5 px-10 flex flex-col items-center gap-4 bg-darkblue text-pearl">
+    <div className="w-full py-4 max-sm:py-5 max-sm:px-5 px-10 flex flex-col items-center gap-4 bg-darkblue text-pearl">
       <a href="/" className="flex justify-center hover:opacity-80 transition-all duration-300 ease-in-out">
-        <img src={logo2} alt="Logo" className="h-10" />
+        <img src={logo2} alt="Logo" className="h-10 pt-1" />
       </a>
       <ul className="w-full flex justify-center">
         <li className="flex flex-row max-[350px]:text-2xl justify-center space-x-4 text-2xl font-Dongle 2xl:text-3xl">

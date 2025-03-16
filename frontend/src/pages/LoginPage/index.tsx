@@ -8,7 +8,7 @@ const LogIn = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full bg-pearl h-auto min-h-[calc(100vh-10rem)] sm:min-h-screen justify-center pt-28 sm:pt-32">
+    <div className="flex flex-col items-center w-full bg-pearl h-auto min-h-[calc(100vh-10rem)] justify-center pt-28 sm:pt-32">
       <p className="font-Kanit flex text-darkblue text-4xl pb-1 font-bold md:text-4xl 2xl:md:text-5xl">Ready to mend?</p>
       <p className="font-Sora flex text-darkblue text-md font-light md:text-lg 2xl:text-xl">Start mending now!</p>
 
