@@ -1,4 +1,36 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import x from "../../assets/x.svg";
+
+type PopupProps = {
+  onConfirm: () => void;
+  onCancel: () => void;
+};
+
+function Popup({ onConfirm, onCancel }: PopupProps) {
+  return (
+    <div className="fixed inset-0 bg-darkblue bg-opacity-50 flex items-center justify-center">
+      <div className="bg-pearl p-10 rounded-xl shadow-lg w-96 h-52 text-center border-[3px] border-darkblue">
+        <p className="text-darkblue font-Solway text-xl mb-6">Are you <span className="font-bold underline">SURE</span> you want to discard changes?</p>
+        <div className="flex justify-center gap-4">
+          
+          <button 
+            className="bg-darkblue hover:bg-[#A30000] hover:border-[#610000] text-pearl px-5 py-1 rounded-full border-2 border-darkblue font-Dongle text-2xl transition-all duration-300"
+            onClick={onConfirm}
+          >
+            Discard
+          </button>
+          <button 
+            className="bg-pearl hover:bg-lightlavender text-darkblue  px-5 py-1 rounded-full border-2 border-darkblue font-Dongle text-2xl transition-all duration-300"
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function JournalPage() {
   const location = useLocation();
