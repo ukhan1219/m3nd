@@ -28,10 +28,8 @@ const Navbar = () => {
     {user && (
       <div className="relative group">
         <button className="flex items-center space-x-2 cursor-pointer hover:text-midblue">
-          <span>{user.name}</span>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 11.121a4.75 4.75 0 016.708 0M15 19l-2 2-2-2m2-2v6" />
-          </svg>
+          <p>Profile</p>
+         
         </button>
 
         <div className="absolute hidden group-hover:flex flex-col bg-lightlavender border border-darkblue shadow-lg rounded-lg w-36 right-0 mt-2">
