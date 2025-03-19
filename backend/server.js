@@ -1,36 +1,29 @@
-import 'dotenv/config';
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import { MongoClient } from 'mongodb';
-import bcrypt from 'bcrypt';
-import { v4 as uuidv4 } from 'uuid';
-import passport from 'passport';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import session from 'express-session';
+import "dotenv/config";
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import { MongoClient } from "mongodb";
+import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
+import passport from "passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import session from "express-session";
 
 const app = express();
 const MONGODB_URI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 3000;
-const sessionSecret = process.env.SESSION_SECRET || uuidv4(); 
+const sessionSecret = process.env.SESSION_SECRET || uuidv4();
 
-let db, usersCollection;
+let db, usersCollection, journalCollection;
 
 // Middleware setup
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 app.use(bodyParser.json());
-
-// CORS configuration
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
-//   next();
-// });
-
 
 // Database connection
 async function connectToDatabase() {
@@ -41,24 +34,24 @@ async function connectToDatabase() {
 
     db = client.db("mend");
     usersCollection = db.collection("Users");
+    journalCollection = db.collection("Journal");
 
     // Logging available collections
     const collections = await db.listCollections().toArray();
     console.log("Collections in mend:");
-    collections.forEach(collection => console.log(`- ${collection.name}`));
+    collections.forEach((collection) => console.log(`- ${collection.name}`));
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
     process.exit(1);
   }
 }
-
-// Initialize database connection
 connectToDatabase();
 
+//  HELPER FUNCTIONS
 async function getUserByStringId(id) {
   try {
     const user = await usersCollection.findOne({
-      $or: [{ googleId: id }, { userId: id }]
+      $or: [{ googleId: id }, { userId: id }],
     });
     return user;
   } catch (error) {
@@ -71,15 +64,19 @@ async function addUser(userData) {
   try {
     const { email, authMethod } = userData;
     let existingUser = await usersCollection.findOne({ email });
-    
+
     if (existingUser) {
       console.log("User with this email already exists.");
       // If the existing user was created locally and doesn't have a googleId,
       // and the current request is Google-based, update it.
-      if (authMethod === "google" && !existingUser.googleId && userData.googleId) {
+      if (
+        authMethod === "google" &&
+        !existingUser.googleId &&
+        userData.googleId
+      ) {
         await usersCollection.updateOne(
           { email },
-          { $set: { googleId: userData.googleId, updatedAt: new Date() } }
+          { $set: { googleId: userData.googleId, updatedAt: new Date() } },
         );
         existingUser = await usersCollection.findOne({ email });
       }
@@ -94,7 +91,7 @@ async function addUser(userData) {
       email: email,
       authMethod,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     if (authMethod === "google") {
@@ -115,13 +112,13 @@ async function addUser(userData) {
   }
 }
 
-
+//  PASSPORT GOOGLE AUTHENTICATION
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `http://localhost:3000/auth/google/callback`
+      callbackURL: `http://localhost:3000/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -131,7 +128,10 @@ passport.use(
           googleId: profile.id,
           firstName: profile.name?.givenName || "",
           lastName: profile.name?.familyName || "",
-          email: profile.emails && profile.emails.length > 0 ? profile.emails[0].value : ""
+          email:
+            profile.emails && profile.emails.length > 0
+              ? profile.emails[0].value
+              : "",
         };
         let user = await getUserByStringId(profile.id);
         if (user) {
@@ -143,35 +143,44 @@ passport.use(
       } catch (error) {
         return done(error, null);
       }
-    }
-  )
+    },
+  ),
 );
 
-passport.serializeUser((user, done) =>{
+passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((user, done) =>{
+passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
+//  SESSION SETUP
 app.use(
   session({
     secret: sessionSecret,
     resave: true,
     saveUninitialized: true,
-    cookie:{maxAge:1000*60*60}
-  })
+    cookie: { maxAge: 1000 * 60 * 60 },
+  }),
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+//  API ROUTES
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] }),
+);
 
-app.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
-  res.redirect("http://localhost:5173/dashboard")
-});
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
+  (req, res) => {
+    res.redirect("http://localhost:5173/dashboard");
+  },
+);
 
 app.post("/auth/local/register", async (req, res) => {
   try {
@@ -184,12 +193,14 @@ app.post("/auth/local/register", async (req, res) => {
       firstName,
       lastName,
       email,
-      password
+      password,
     };
     const user = await addUser(localUserData);
     req.login(user, (err) => {
       if (err) {
-        return res.status(500).json({ error: "Login error after registration" });
+        return res
+          .status(500)
+          .json({ error: "Login error after registration" });
       }
       return res.json(user);
     });
@@ -197,7 +208,6 @@ app.post("/auth/local/register", async (req, res) => {
     return res.status(500).json({ error: "Error creating user" });
   }
 });
-
 
 app.post("/auth/local/login", async (req, res) => {
   try {
@@ -228,12 +238,21 @@ app.post("/auth/local/login", async (req, res) => {
   }
 });
 
+app.get("/auth/check", (req, res) => {
+  if (req.isAuthenticated()) {
+    // Send back whichever information you need (for example, the user’s id).
+    res.json({ user: req.user });
+  } else {
+    res.status(401).json({ user: null });
+  }
+});
+
 app.get("/profile", (req, res) => {
   if (req.isAuthenticated()) {
     console.log(JSON.stringify(req.user, null, 2));
-    res.json(req.user); 
+    res.json(req.user);
   } else {
-    res.redirect("/");
+    res.redirect("/login");
   }
 });
 
