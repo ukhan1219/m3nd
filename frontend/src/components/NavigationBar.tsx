@@ -9,6 +9,7 @@ const Navbar = () => {
   const handleNav = () => {
     setNav(!nav);
   };
+  
 
   return (
     <nav className="bg-lightlavender text-darkblue p-3 font-Dongle fixed top-0 left-0 w-full z-50">
@@ -19,25 +20,45 @@ const Navbar = () => {
         </a>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-6 text-2xl 2xl:text-3xl font-normal">
-          <a href="/" className="nav-link hover:text-midblue">Home</a>
-          <a href="/about" className="nav-link hover:text-midblue">About</a>
-          {user && <a href="/journals" className="nav-link hover:text-midblue">Journals</a>}
-          {!user ? (
-            <>
-              <a href="/login">
-                <button className="border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-midblue">
-                  Log in
-                </button>
-              </a>
-              <a href="/signup">
-                <button className="border-2 border-darkblue transition-all duration-[150ms] text-darkblue hover:text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-darkblue">
-                  Sign up
-                </button>
-              </a>
-            </>
-          ) : null}
+<div className="hidden md:flex items-center space-x-6 text-2xl 2xl:text-3xl font-normal">
+  <a href="/" className="nav-link hover:text-midblue">Home</a>
+  <a href="/about" className="nav-link hover:text-midblue">About</a>
+{/* 
+  <div>
+    {user && (
+      <div className="relative group">
+        <button className="flex items-center space-x-2 cursor-pointer hover:text-midblue">
+          <span>{user.name}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 11.121a4.75 4.75 0 016.708 0M15 19l-2 2-2-2m2-2v6" />
+          </svg>
+        </button>
+
+        <div className="absolute hidden group-hover:flex flex-col bg-lightlavender border border-darkblue shadow-lg rounded-lg w-36 right-0 mt-2">
+          <a href="/profile" className="px-4 py-2 hover:bg-midblue transition-all">Profile</a>
+          <a href="/" className="px-4 py-2 hover:bg-midblue transition-all">Sign Out</a>
         </div>
+      </div>
+    )}
+  </div>
+*/}
+
+  {!user ? (
+    <>
+      <a href="/login">
+        <button className="border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-midblue">
+          Log in
+        </button>
+      </a>
+      <a href="/signup">
+        <button className="border-2 border-darkblue transition-all duration-[150ms] text-darkblue hover:text-pearl px-10 py-0 rounded-full text-2xl 2xl:text-3xl hover:bg-darkblue">
+          Sign up
+        </button>
+      </a>
+    </>
+  ) : null}
+</div>
+
 
         {/* Mobile Menu Icon */}
         <div className="block md:hidden cursor-pointer" onClick={handleNav}>
@@ -59,9 +80,18 @@ const Navbar = () => {
           <a href="/about" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">About</a>
         </li>
         {user && (
+          <>
           <li className="text-2xl translate-y-20">
             <a href="/dashboard" onClick={handleNav} className="nav-link text-4xl hover:text-midblue">Journals</a>
           </li>
+          <li>
+          <a href="/">
+            <button className="translate-y-20 border-2 border-darkblue bg-darkblue transition-all duration-[150ms] text-pearl px-10 py-0 rounded-full text-4xl hover:bg-midblue">
+              Sign Out
+            </button>
+          </a>
+        </li>
+        </>
         )}
         {!user ? (
           <>

@@ -6,6 +6,7 @@ import { format, startOfMonth, getDaysInMonth, getDay } from "date-fns";
 import notebook from "../../assets/notebook.png";
 
 export function Dashboard() {
+
 const [selected, setSelected] = useState<Date | null>(new Date());
 const [currentDate, setCurrentDate] = useState(new Date());
 const handleSelect = (date: Date) => {
@@ -21,19 +22,23 @@ const handleJournalClick = () => {
     navigate('/journal', { state: { date: selected } });
   }
 };
-
-
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const [year, month] = event.target.value.split('-').map(Number);
     setCurrentDate(new Date(year, month, 1));
   };
-
   const daysInMonth = getDaysInMonth(currentDate);
   const firstDayOfWeek = getDay(startOfMonth(currentDate));
+  const handleTodayClick = () => {
+    const today = new Date();
+    setCurrentDate(today); 
+    setSelected(today);
+  };
+  
+  
 
   return (
     <div className="flex flex-col md:flex-row bg-lavender max-[473px]:bg-midblue justify-center max-[820px]:items-center min-h-[calc(100vh-10rem)] max-[473px]:p-0 p-6 md:p-12 shadow-lg max-sm:pt-24 sm:pt-32 md:pt-28 max-[473px]:pt-20 max-[400px]:pt-20">
-      <div className="flex flex-col md:flex-row w-auto rounded-xl border-[3px] max-[473px]:border-none max-[473px]:rounded-none border-darkblue overflow-hidden shadow-md md:max-h-[40rem] max-md:max-h-[44rem]">
+      <div className="flex flex-col md:flex-row w-auto max-[473px]:bg-pearl rounded-xl border-[3px] max-[473px]:border-none max-[473px]:rounded-none border-darkblue overflow-hidden shadow-md md:max-h-[40rem] max-md:max-h-[44rem]">
         <div className="bg-midblue text-pearl text-left p-6 md:w-4/12 lg:w-1/3">
           <div>
             <h1 className="text-3xl font-bold font-Solway max-md:text-center ">MendBoard</h1>
@@ -77,6 +82,7 @@ const handleJournalClick = () => {
             <div className="flex items-center gap-2">
                 <button
                   onClick={handleTodayClick}
+
                   className="px-4 py-1 bg-lightblue bg-opacity-10 hover:bg-opacity-30 text-darkblue border-2 border-midblue font-semibold rounded-md duration-300"
                 >
                   Today
@@ -104,6 +110,7 @@ const handleJournalClick = () => {
                 <ChevronRight size={24} />
               </button>
             </div>
+
           </div>
 
           <div className="grid grid-cols-7 max-[473px]:gap-x-6 gap-4 font-Sora max-[473px]:pl-0 max-sm:text-sm text-center text-darkblue">
@@ -139,7 +146,7 @@ const handleJournalClick = () => {
             ))}
           </div>
 
-          <div className="flex justify-center font-Sora text-md pb-8 pt-6 mt-6">
+          <div className="max-[473px]:hidden flex justify-center font-Sora text-md pb-8 pt-6 mt-6">
           <button
             onClick={handleJournalClick}
             className={`px-6 py-2 bg-midblue hover:bg-darkblue hover:text-pearl text-pearl border-2 border-midblue font-semibold rounded-full duration-300 ${
@@ -152,6 +159,18 @@ const handleJournalClick = () => {
 
           </div>
         </div>
+        <div className="min-[473px]:hidden flex bg-pearl justify-center font-Sora text-md pb-8 pt-4">
+          <button
+            onClick={handleJournalClick}
+            className={`px-6 py-2 bg-midblue hover:bg-darkblue hover:text-pearl text-pearl border-2 border-midblue font-semibold rounded-full duration-300 ${
+              selected ? '' : 'opacity-50 pointer-events-none'
+            }`}
+          >
+            Journal!
+          </button>
+          
+
+          </div>
       </div>
     </div>
   );
