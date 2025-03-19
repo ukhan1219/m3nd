@@ -17,7 +17,7 @@ const Footer = () => {
           ) : (
             <>
               <a href="/login" className="hover:text-[#B9C3DA] nav-link2">LOGIN</a><p className="font-extrabold">{" | "}</p>
-              <a href="/signup" className="hover:text-[#B9C3DA] nav-link2">SIGNUP</a>
+              <a href="/signup" className="hover:text-[#B9C3DA] nav-link2">SIGN UP</a>
             </>
           )}
         </li>

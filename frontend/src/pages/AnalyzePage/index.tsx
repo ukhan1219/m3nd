@@ -32,7 +32,7 @@ function Popup({ onConfirm, onCancel }: PopupProps) {
   );
 }
 
-export function JournalPage() {
+export function AnalyzePage() {
   const location = useLocation();
   const navigate = useNavigate();
   const selectedDate = new Date(location.state?.date);
@@ -48,9 +48,10 @@ export function JournalPage() {
   const confirmSave = () => {
     navigate('/dashboard');
   };
-  const analyzeEntry = () => {
-    navigate('/analyze', { state: { date: selectedDate } });
+  const editEntry = () => {
+    navigate('/journal', { state: { date: selectedDate } });
   };
+
 
   return (
     <div className="flex flex-col items-center justify-center w-full bg-lavender max-[820px]:items-center min-h-[calc(100vh-10rem)] sm:py-12 px-6 max-[473px]:px-0 max-sm:pt-20 sm:pt-32 pb-6">
@@ -67,24 +68,23 @@ export function JournalPage() {
         </button>
 
         <h1 className="text-3xl font-bold py-3 text-center text-darkblue font-Solway">
-          Journal Entry for {selectedDate?.toLocaleDateString()}
+          Entry Analysis for {selectedDate?.toLocaleDateString()}
         </h1>
 
-        <textarea
-          className="w-full h-80 md:h-96 p-4 mt-4 border-[2.5px] border-lightblue rounded-2xl bg-lightlavender text-darkblue font-Sora font-bold text-lg placeholder-midblue placeholder-opacity-60 transition-all"
-          placeholder="Write your journal entry here..."
-        />
+        <div className="w-full h-80 md:h-96 p-4 mt-4 border-[2.5px] border-lightblue rounded-2xl bg-lightlavender text-darkblue font-Sora font-bold text-left text-lg placeholder-midblue placeholder-opacity-60 transition-all">
+            Analyzing...
+        </div>
 
         <div className="flex justify-center items-center gap-4 mt-6">
           <button onClick={confirmSave}
             className="bg-midblue hover:bg-darkblue text-pearl font-semibold font-Sora px-8 py-4 rounded-full max-[473px]:px-6 max-[473px]:py-2 border-2 text-lg border-darkblue transition-all duration-300 shadow-md max-[473px]:text-md"
           >
-            Save Entry
+            Save Analysis
           </button>
-          <button onClick={analyzeEntry}
+          <button onClick={editEntry}
             className="bg-pearl hover:bg-lightlavender text-darkblue font-semibold font-Sora px-8 py-4 rounded-full max-[473px]:px-6 max-[473px]:py-2 text-lg border-2 border-darkblue transition-all duration-300 shadow-md max-[473px]:text-md"
           >
-            Analyze Entry
+            Edit Entry
           </button>
         </div>
       </div>
@@ -94,4 +94,4 @@ export function JournalPage() {
   );
 }
 
-export default JournalPage;
+export default AnalyzePage;
