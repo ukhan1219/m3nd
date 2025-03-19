@@ -11,6 +11,7 @@ const Signup = () => {
   const [password, setPassword]     = useState("");
   const [error, setError]           = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [termsChecked, setTermsChecked] = useState(false); 
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -101,12 +102,18 @@ const Signup = () => {
             <button 
               type="button" 
               onClick={togglePasswordVisibility} 
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-darkblue text-sm font-semibold">
+              className="absolute right-3 top-[40%] transform -translate-y-1/2 text-darkblue text-sm font-semibold">
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
           <div className="pt-4 flex justify-center items-center space-x-2">
-            <input type="checkbox" id="terms" className="h-4 w-4" />
+            <input 
+              type="checkbox" 
+              id="terms" 
+              checked={termsChecked}
+              onChange={() => setTermsChecked(!termsChecked)}
+              className="h-4 w-4" 
+            />
             <label htmlFor="terms" className="text-sm">
               I agree to the <a href="#" className="text-blue-600 font-semibold underline">Terms & Conditions</a>
             </label>
@@ -115,7 +122,12 @@ const Signup = () => {
           <div className="flex justify-center pt-8 pb-2">
             <button 
               type="submit"
-              className="bg-midblue border-2 border-darkblue hover:bg-darkblue text-pearl w-48 font-semibold py-2.5 rounded-full shadow-md transition">
+              disabled={!termsChecked}
+              className={`w-48 font-semibold py-2.5 rounded-full shadow-md transition ${
+                termsChecked 
+                  ? "bg-midblue border-2 border-darkblue hover:bg-darkblue text-pearl"
+                  : "bg-midblue border-2 border-darkblue text-pearl opacity-75 cursor-not-allowed"
+              }`}>
               Register
             </button>
           </div>
