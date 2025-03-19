@@ -53,7 +53,7 @@ const handleJournalClick = () => {
                       alt="notebook-icon"
                       className="h-8 hover:opacity-80 transition-all duration-300 ease-in-out"
                     />
-                    <span className="w-full h-2 bg-pearl/30 rounded"></span>
+                    <p className="font-Sora">Entry xx/xx/xxxx</p>
                   </li>
                 ))}
               </ul>
@@ -82,7 +82,8 @@ const handleJournalClick = () => {
             <div className="flex items-center gap-2">
                 <button
                   onClick={handleTodayClick}
-                  className="px-4 py-1 bg-lightblue bg-opacity-25 hover:bg-opacity-50 text-darkblue border-2 border-midblue font-semibold rounded-md duration-300"
+
+                  className="px-4 py-1 bg-lightblue bg-opacity-10 hover:bg-opacity-30 text-darkblue border-2 border-midblue font-semibold rounded-md duration-300"
                 >
                   Today
                 </button>
@@ -98,16 +99,16 @@ const handleJournalClick = () => {
                   <ChevronLeft size={24} />
                 </button>
 
-                <button
-                  onClick={() =>
-                    setCurrentDate(
-                      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
-                    )
-                  }
-                  className="text-midblue hover:text-darkblue transition-all duration-200"
-                >
-                  <ChevronRight size={24} />
-                </button>
+              <button
+                onClick={() =>
+                  setCurrentDate(
+                    new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+                  )
+                }
+                className="text-midblue hover:text-darkblue transition-all duration-200"
+              >
+                <ChevronRight size={24} />
+              </button>
             </div>
 
           </div>

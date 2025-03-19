@@ -15,7 +15,8 @@ function Popup({ onConfirm, onCancel }: PopupProps) {
         <div className="flex justify-center gap-4">
           
           <button 
-            className="bg-darkblue hover:bg-midblue text-pearl px-5 py-1 rounded-full border-2 border-darkblue font-Dongle text-2xl transition-all duration-300"
+
+            className="bg-darkblue hover:bg-[#A30000] hover:border-[#610000] text-pearl px-5 py-1 rounded-full border-2 border-darkblue font-Dongle text-2xl transition-all duration-300"
             onClick={onConfirm}
           >
             Discard
