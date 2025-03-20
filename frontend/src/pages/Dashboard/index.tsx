@@ -22,10 +22,16 @@ const handleJournalClick = () => {
     navigate('/journal', { state: { date: selected } });
   }
 };
-  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const [year, month] = event.target.value.split('-').map(Number);
-    setCurrentDate(new Date(year, month, 1));
-  };
+const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const [year, month] = event.target.value.split('-').map(Number);
+  const newDate = new Date(year, month, 1);
+  
+  setCurrentDate(newDate);
+
+  if (selected && (selected.getMonth() !== month || selected.getFullYear() !== year)) {
+    setSelected(null);
+  }
+};
   const daysInMonth = getDaysInMonth(currentDate);
   const firstDayOfWeek = getDay(startOfMonth(currentDate));
   const handleTodayClick = () => {
@@ -33,6 +39,15 @@ const handleJournalClick = () => {
     setCurrentDate(today); 
     setSelected(today);
   };
+
+  const entries = [
+    new Date(2025, 2, 18).toDateString(),
+  ];
+  
+  const hasEntry = (date: Date) =>
+     entries.some((entry) => new Date(entry).toDateString() === date.toDateString()); 
+
+  
   
   
 
@@ -126,24 +141,36 @@ const handleJournalClick = () => {
               </span>
             ))}
 
-            {Array.from({ length: daysInMonth }, (_, i) => (
-              <button
-                key={i}
-                onClick={() =>
-                  handleSelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1))
-                }
-                className={`w-10 h-10 flex items-center justify-center mx-auto rounded-full transition-all
-                ${
-                  selected?.getDate() === i + 1 &&
-                  selected?.getMonth() === currentDate.getMonth()
-                    ? "bg-darkblue text-pearl border-2 border-lightblue font-bold"
-                    : "bg-lightblue/30 hover:bg-midblue hover:text-pearl font-semibold"
-                }`}
+{Array.from({ length: daysInMonth }, (_, i) => {
+  const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1);
+  const isEntryDate = hasEntry(date);
+  const isSelected = selected?.getDate() === i + 1 && selected?.getMonth() === currentDate.getMonth();
 
-              >
-                {i + 1}
-              </button>
-            ))}
+  return (
+    <button
+      key={i}
+      onClick={() => handleSelect(date)}
+      className={`w-10 h-10 flex items-center justify-center mx-auto rounded-full transition-all
+        ${
+          isEntryDate 
+            ? isSelected 
+              ? 'bg-[#ffe69d] text-darkblue border-2 border-[#ffc821] font-bold' 
+              : 'bg-[#fbf3c5] hover:bg-[#ffeaac] text-darkblue border-[2px] border-[#fed24f] font-semibold' 
+            : !isEntryDate && isSelected 
+              ? "bg-lightblue/45 text-darkblue border-2 border-lightblue font-bold" 
+              : !isEntryDate 
+                ? "bg-lightblue/15 hover:bg-lightblue/20 hover:text-darkblue font-semibold border-2 border-lavender"
+                : ""
+        }`}
+    >
+      {i + 1}
+    </button>
+  );
+})}
+
+
+
+
           </div>
 
           <div className="max-[473px]:hidden flex justify-center font-Sora text-md pb-8 pt-6 mt-6">
@@ -153,7 +180,7 @@ const handleJournalClick = () => {
               selected ? '' : 'opacity-50 pointer-events-none'
             }`}
           >
-            Journal!
+            {selected && hasEntry(selected) ? "View entry" : "Journal!"}
           </button>
           
 
@@ -166,11 +193,10 @@ const handleJournalClick = () => {
               selected ? '' : 'opacity-50 pointer-events-none'
             }`}
           >
-            Journal!
+            {selected && hasEntry(selected) ? "View entry" : "Journal!"}
           </button>
-          
+        </div>
 
-          </div>
       </div>
     </div>
   );

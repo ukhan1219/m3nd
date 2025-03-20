@@ -79,6 +79,7 @@ const Navbar = () => {
               Logout
             </button>
           )}
+
         </div>
 
         {/* Mobile Menu Icon */}
