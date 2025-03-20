@@ -22,10 +22,14 @@ const handleJournalClick = () => {
     navigate('/journal', { state: { date: selected } });
   }
 };
-  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const [year, month] = event.target.value.split('-').map(Number);
-    setCurrentDate(new Date(year, month, 1));
-  };
+const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const [year, month] = event.target.value.split('-').map(Number);
+  const newDate = new Date(year, month, 1);
+  setCurrentDate(newDate);
+  if (selected && (selected.getMonth() !== month || selected.getFullYear() !== year)) {
+    setSelected(null);
+  }
+};
   const daysInMonth = getDaysInMonth(currentDate);
   const firstDayOfWeek = getDay(startOfMonth(currentDate));
   const handleTodayClick = () => {
@@ -33,12 +37,15 @@ const handleJournalClick = () => {
     setCurrentDate(today); 
     setSelected(today);
   };
+  const entries = [
+    new Date(2025, 2, 18).toDateString(),
+  ];
   
-  
-
+  const hasEntry = (date: Date) =>
+     entries.some((entry) => new Date(entry).toDateString() === date.toDateString()); 
   return (
-    <div className="flex flex-col md:flex-row bg-lavender max-[473px]:bg-midblue justify-center max-[820px]:items-center min-h-[calc(100vh-10rem)] max-[473px]:p-0 p-6 md:p-12 shadow-lg max-sm:pt-24 sm:pt-32 md:pt-28 max-[473px]:pt-20 max-[400px]:pt-20">
-      <div className="flex flex-col md:flex-row w-auto max-[473px]:bg-pearl rounded-xl border-[3px] max-[473px]:border-none max-[473px]:rounded-none border-darkblue overflow-hidden shadow-md md:max-h-[40rem] max-md:max-h-[44rem]">
+    <div className="flex flex-col md:flex-row bg-lavender max-[473px]:bg-midblue justify-center max-[820px]:items-center min-h-[calc(100vh-10rem)] max-[473px]:p-0  max-[375px]:p-0 md:p-12 shadow-lg max-sm:pt-24 max-md:pb-12 sm:pt-32 md:pt-28 max-[473px]:pt-20">
+      <div className="flex flex-col md:flex-row max-[475px]:w-full w-auto max-[473px]:bg-pearl rounded-xl border-[3px] max-[473px]:border-none max-[473px]:rounded-none border-darkblue overflow-hidden shadow-md md:max-h-[40rem] max-md:max-h-[44rem]">
         <div className="bg-midblue text-pearl text-left p-6 md:w-4/12 lg:w-1/3">
           <div>
             <h1 className="text-3xl font-bold font-Solway max-md:text-center ">MendBoard</h1>
@@ -126,34 +133,42 @@ const handleJournalClick = () => {
               </span>
             ))}
 
-            {Array.from({ length: daysInMonth }, (_, i) => (
-              <button
-                key={i}
-                onClick={() =>
-                  handleSelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1))
-                }
-                className={`w-10 h-10 flex items-center justify-center mx-auto rounded-full transition-all
-                ${
-                  selected?.getDate() === i + 1 &&
-                  selected?.getMonth() === currentDate.getMonth()
-                    ? "bg-darkblue text-pearl border-2 border-lightblue font-bold"
-                    : "bg-lightblue/30 hover:bg-midblue hover:text-pearl font-semibold"
-                }`}
+            {Array.from({ length: daysInMonth }, (_, i) => {
+              const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1);
+              const isEntryDate = hasEntry(date);
+              const isSelected = selected?.getDate() === i + 1 && selected?.getMonth() === currentDate.getMonth();
 
-              >
-                {i + 1}
-              </button>
-            ))}
+              return (
+                <button
+                  key={i}
+                  onClick={() => handleSelect(date)}
+                  className={`w-10 h-10 flex items-center justify-center mx-auto rounded-full transition-all
+                    ${
+                      isEntryDate 
+                        ? isSelected 
+                          ? 'bg-[#ffe69d] text-darkblue border-2 border-[#ffc821] font-bold' 
+                          : 'bg-[#fbf3c5] hover:bg-[#ffeaac] text-darkblue border-[2px] border-[#fed24f] font-semibold' 
+                        : !isEntryDate && isSelected 
+                          ? "bg-lightblue/45 text-darkblue border-2 border-lightblue font-bold" 
+                          : !isEntryDate 
+                            ? "bg-lightblue/15 hover:bg-lightblue/20 hover:text-darkblue font-semibold border-2 border-lavender"
+                            : ""
+                    }`}
+                >
+                  {i + 1}
+                </button>
+              );
+            })}
           </div>
 
-          <div className="max-[473px]:hidden flex justify-center font-Sora text-md pb-8 pt-6 mt-6">
+          <div className="max-[473px]:hidden flex justify-center font-Sora text-md pb-16 pt-6 mt-2">
           <button
             onClick={handleJournalClick}
             className={`px-6 py-2 bg-midblue hover:bg-darkblue hover:text-pearl text-pearl border-2 border-midblue font-semibold rounded-full duration-300 ${
               selected ? '' : 'opacity-50 pointer-events-none'
             }`}
           >
-            Journal!
+            {selected && hasEntry(selected) ? "View entry" : "Journal!"}
           </button>
           
 
@@ -166,11 +181,10 @@ const handleJournalClick = () => {
               selected ? '' : 'opacity-50 pointer-events-none'
             }`}
           >
-            Journal!
+            {selected && hasEntry(selected) ? "View entry" : "Journal!"}
           </button>
-          
+        </div>
 
-          </div>
       </div>
     </div>
   );
