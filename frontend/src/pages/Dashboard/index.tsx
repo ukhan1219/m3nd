@@ -22,10 +22,16 @@ const handleJournalClick = () => {
     navigate('/journal', { state: { date: selected } });
   }
 };
-  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const [year, month] = event.target.value.split('-').map(Number);
-    setCurrentDate(new Date(year, month, 1));
-  };
+const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const [year, month] = event.target.value.split('-').map(Number);
+  const newDate = new Date(year, month, 1);
+  
+  setCurrentDate(newDate);
+
+  if (selected && (selected.getMonth() !== month || selected.getFullYear() !== year)) {
+    setSelected(null);
+  }
+};
   const daysInMonth = getDaysInMonth(currentDate);
   const firstDayOfWeek = getDay(startOfMonth(currentDate));
   const handleTodayClick = () => {
@@ -33,14 +39,14 @@ const handleJournalClick = () => {
     setCurrentDate(today); 
     setSelected(today);
   };
+
   const entries = [
-    new Date(2025, 2, 5).toDateString(),
-    new Date(2025, 2, 10).toDateString(),
     new Date(2025, 2, 18).toDateString(),
   ];
   
   const hasEntry = (date: Date) =>
-    entries.some((entry) => new Date(entry).toDateString() === date.toDateString());
+     entries.some((entry) => new Date(entry).toDateString() === date.toDateString()); 
+
   
   
   
@@ -187,11 +193,10 @@ const handleJournalClick = () => {
               selected ? '' : 'opacity-50 pointer-events-none'
             }`}
           >
-            Journal!
+            {selected && hasEntry(selected) ? "View entry" : "Journal!"}
           </button>
-          
+        </div>
 
-          </div>
       </div>
     </div>
   );
