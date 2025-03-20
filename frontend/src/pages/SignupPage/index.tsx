@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 const Signup = () => {
   const navigate = useNavigate();
 
-  // Form state for local signup
   const [firstName, setFirstName]   = useState("");
   const [lastName, setLastName]     = useState("");
   const [email, setEmail]           = useState("");
   const [password, setPassword]     = useState("");
   const [error, setError]           = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [termsChecked, setTermsChecked] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -42,6 +43,37 @@ const Signup = () => {
       setError("An error occurred. Please try again.");
     }
   };
+
+  const handleTermsClick = (e) => {
+    e.preventDefault();
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+  type PopupProps = {
+    onConfirm: () => void;
+  };
+  function Popup({ onConfirm }: PopupProps) {
+    
+    return (
+      <div className="fixed inset-0 bg-darkblue bg-opacity-50 flex items-center justify-center">
+        <div className="bg-pearl p-10 rounded-xl shadow-lg w-96 h-52 text-center border-[3px] border-darkblue">
+          <p className="text-darkblue font-Solway text-xl mb-2">There are no terms lol</p>
+          <p className="text-midblue font-Sora text-sm mb-4 italic">We just wanted it to look real</p>
+          <div className="flex justify-center">
+            <button 
+              className="bg-darkblue hover:bg-midblue  text-pearl px-8 py-1 rounded-full border-2 border-darkblue font-Dongle text-2xl transition-all duration-300"
+              onClick={onConfirm}
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center w-full bg-pearl h-auto min-h-[calc(100vh-10rem)] justify-center pt-28 sm:pt-32">
@@ -101,21 +133,32 @@ const Signup = () => {
             <button 
               type="button" 
               onClick={togglePasswordVisibility} 
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-darkblue text-sm font-semibold">
+              className="absolute right-3 top-[40%] transform -translate-y-1/2 text-darkblue text-sm font-semibold">
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
           <div className="pt-4 flex justify-center items-center space-x-2">
-            <input type="checkbox" id="terms" className="h-4 w-4" />
+            <input 
+              type="checkbox" 
+              id="terms" 
+              checked={termsChecked}
+              onChange={() => setTermsChecked(!termsChecked)}
+              className="h-4 w-4" 
+            />
             <label htmlFor="terms" className="text-sm">
-              I agree to the <a href="#" className="text-blue-600 font-semibold underline">Terms & Conditions</a>
+              I agree to the <a href="#" onClick={handleTermsClick} className="text-blue-600 font-semibold underline">Terms &amp; Conditions</a>
             </label>
           </div>
-          {error && <p className="text-red-600 text-center mt-2">{error}</p>}
+          {error && <p className="text-[#A30000] font-dongle font-bold text-center mt-2">{error}</p>}
           <div className="flex justify-center pt-8 pb-2">
             <button 
               type="submit"
-              className="bg-midblue border-2 border-darkblue hover:bg-darkblue text-pearl w-48 font-semibold py-2.5 rounded-full shadow-md transition">
+              disabled={!termsChecked}
+              className={`w-48 font-semibold py-2.5 rounded-full shadow-md transition ${
+                termsChecked 
+                  ? "bg-midblue border-2 border-darkblue hover:bg-darkblue text-pearl"
+                  : "bg-midblue border-2 border-darkblue text-pearl opacity-75 cursor-not-allowed"
+              }`}>
               Register
             </button>
           </div>
@@ -124,6 +167,8 @@ const Signup = () => {
           </p>
         </form>
       </div>
+
+      {showPopup && <Popup onConfirm={closePopup} />}
     </div>
   );
 };
