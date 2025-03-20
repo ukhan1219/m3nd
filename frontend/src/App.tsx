@@ -20,9 +20,10 @@ import AnalyzePage from "./pages/AnalyzePage";
 function App() {
   return (
     <div className="min-h-screen w-screen flex flex-col">
-      <NavigationBar />
+      
 
         <Router>
+          <NavigationBar />
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />

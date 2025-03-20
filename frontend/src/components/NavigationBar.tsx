@@ -53,9 +53,6 @@ const Navbar = () => {
               >
                 Dashboard
               </button>
-              <a href="/dashboard" className="nav-link hover:text-midblue">
-                Journals
-              </a>
             </>
           )}
           {!user ? (
