@@ -81,11 +81,11 @@ const LogIn = () => {
             <button 
               type="button" 
               onClick={togglePasswordVisibility} 
-              className="absolute right-3 top-[40%] transform -translate-y-1/2 text-darkblue text-sm font-semibold">
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-darkblue text-sm font-semibold">
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
-          {error && <p className="text-[#A30000] font-dongle font-bold text-center mt-2 font-Sora">{error}</p>}
+          {error && <p className="text-red-600 text-center mt-2">{error}</p>}
           <div className="flex justify-center pt-8 pb-2">
             <button 
               type="submit"
