@@ -257,7 +257,6 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  const authMethod = req.user ? req.user.authMethod : null;
   req.logout((err) => {
     if (err) {
       console.error("Error during logout:", err);
@@ -269,8 +268,8 @@ app.get("/logout", (req, res) => {
         return res.status(500).send("Internal Server Error");
       }
       res.clearCookie("connect.sid");
-
-      res.redirect("/");
+      // Send a success response instead of redirecting.
+      res.status(200).json({ message: "Logout successful" });
     });
   });
 });

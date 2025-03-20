@@ -16,6 +16,7 @@ import SignupPage from "./pages/SignupPage";
 import Dashboard from "./pages/Dashboard";
 import JournalPage from "./pages/JournalPage";
 import AnalyzePage from "./pages/AnalyzePage";
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 function App() {
   return (
@@ -28,19 +29,32 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/about" element={<AboutPage/>}/>
-            <Route path="/login" element={<LoginPage/>}/>
             <Route path="/signup" element={<SignupPage/>}/>
-            <Route path="/dashboard" element={<Dashboard/>}/>
-            <Route path="/journal" element={<JournalPage/>}/>
-            <Route path="/analyze" element={<AnalyzePage/>}/>
-            {/* <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              }
-            /> */}
+
+            <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/journal"
+            element={
+              <ProtectedRoute>
+                <JournalPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/analyze"
+            element={
+              <ProtectedRoute>
+                <AnalyzePage />
+              </ProtectedRoute>
+            }
+          />
           </Routes>
         </Router>
 

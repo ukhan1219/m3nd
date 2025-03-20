@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext';
+
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -9,6 +11,7 @@ const LogIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError]       = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const { setUser } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -20,16 +23,19 @@ const LogIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const res = await fetch("http://localhost:3000/auth/local/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
       if (res.ok) {
+        // Update the AuthContext with the returned user data
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
         navigate("/dashboard");
       } else {
         setError(data.error || "Login failed.");
