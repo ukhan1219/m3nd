@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Google from './../../assets/web_neutral_rd_na.svg';
+
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -47,9 +49,10 @@ const LogIn = () => {
       
       <div className="px-8 pt-8 pb-12 rounded-3xl max-w-md w-full">
         <h2 className="text-3xl font-extrabold text-center text-darkblue mb-4">Log in</h2>
-        <button 
+        <button
           onClick={handleGoogleLogin}
-          className="w-full bg-pearl text-darkblue font-semibold py-2 rounded-xl border-2 mb-4 shadow-md hover:bg-darkblue hover:text-pearl transition">
+          className="w-full bg-[#F2F2F2] text-darkblue font-semibold py-2 rounded-full border-2 mb-4 hover:shadow-lg transition flex items-center justify-center">
+          <img src={Google} alt="Google" className="mr-2" />
           Log in with Google
         </button>
         <div className="flex items-center space-x-2 text-darkblue">

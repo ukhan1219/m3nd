@@ -52,9 +52,7 @@ const LandingPage = () => {
                   <p className="2xl:text-xl text-lg mb-6 text-left">
                     Mend is a digital platform designed to help individuals heal. This app provides a safe and supportive environment for users to journal their thoughts and emotions, reflect on their experiences, and develop healthy habits. With its user-friendly interface and use of AI to analyze behavior, Mend empowers individuals to take control of their mental health and cultivate a more positive and resilient mindset.                  
                   </p>
-                  <a href="/about">
-                    <button className="bg-midblue hover:bg-darkblue transition-all duration-300 border-2 border-darkblue text-pearl lg:flex gl:justify-start px-8 py-2 rounded-full shadow-md">Learn More</button>
-                  </a>
+                    <button className="bg-midblue hover:bg-darkblue transition-all duration-300 border-2 border-darkblue text-pearl lg:flex gl:justify-start px-8 py-2 rounded-full shadow-md"><a href="/about">Learn More</a></button>
               </div>
           </div>
 
