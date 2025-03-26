@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import session from "express-session";
+import { getTherapeuticAdvice } from "./openai.js";
+import { listModels } from "./openai.js";
 
 const app = express();
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -46,6 +48,7 @@ async function connectToDatabase() {
   }
 }
 connectToDatabase();
+listModels();
 
 //  HELPER FUNCTIONS
 async function getUserByStringId(id) {
@@ -122,30 +125,32 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        // For Google, we pass the relevant fields to addUser
-        const googleUserData = {
-          authMethod: "google",
-          googleId: profile.id,
-          firstName: profile.name?.givenName || "",
-          lastName: profile.name?.familyName || "",
-          email:
-            profile.emails && profile.emails.length > 0
-              ? profile.emails[0].value
-              : "",
-        };
+        console.log("Google profile received:", profile);
         let user = await getUserByStringId(profile.id);
         if (user) {
           console.log("User exists, logging in");
         } else {
-          user = await addUser(googleUserData);
+          user = await addUser({
+            authMethod: "google",
+            googleId: profile.id,
+            firstName: profile.name?.givenName || "",
+            lastName: profile.name?.familyName || "",
+            email:
+              profile.emails && profile.emails.length > 0
+                ? profile.emails[0].value
+                : "",
+          });
+          console.log("New user added:", user);
         }
         return done(null, user);
       } catch (error) {
+        console.error("Error in GoogleStrategy:", error);
         return done(error, null);
       }
     },
   ),
 );
+
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -161,8 +166,12 @@ app.use(
     secret: sessionSecret,
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 * 60 },
-  }),
+    cookie: { 
+      maxAge: 1000 * 60 * 60,
+      secure: false,       // Required for localhost
+      sameSite: "lax",     // Proper sameSite policy
+    },
+  })
 );
 
 app.use(passport.initialize());
@@ -273,6 +282,20 @@ app.get("/logout", (req, res) => {
     });
   });
 });
+
+app.post("/analyze-journal", async (req, res) => {
+  const { journalText } = req.body;
+  if (!journalText) {
+    return res.status(400).json({ error: "Journal text is required." });
+  }
+  try {
+    const advice = await getTherapeuticAdvice(journalText);
+    res.json({ advice });
+  } catch (error) {
+    res.status(500).json({ error: "Error processing journal entry." });
+  }
+});
+
 
 // Server initialization
 app.listen(PORT, () => {

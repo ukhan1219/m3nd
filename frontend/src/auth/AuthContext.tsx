@@ -8,48 +8,53 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);  // Add loading state
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      fetch("http://localhost:3000/auth/check", {
-        credentials: "include",
-      })
-        .then((res) => {
-          if (res.status === 401) return null;
-          return res.json();
-        })
-        .then((data) => {
-          if (data && data.user) {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/auth/check", {
+          credentials: "include",
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.user) {
             setUser(data.user);
             localStorage.setItem("user", JSON.stringify(data.user));
           }
-        })
-        .catch((err) => {
-          console.error("Error when fetching auth:", err);
-          setUser(null);
-        });
-    }
-  }, []);
-
-  const logout = () => {
-    fetch("http://localhost:3000/logout", {
-      credentials: "include",
-    })
-      .then((res) => {
-        if (res.ok) {
-          setUser(null);
+        } else {
           localStorage.removeItem("user");
         }
-      })
-      .catch((err) => {
-        console.error("Logout error:", err);
+      } catch (error) {
+        console.error("Auth check error:", error);
+        localStorage.removeItem("user");
+      } finally {
+        setLoading(false);  // Mark loading as complete
+      }
+    };
+
+    // Always check server auth status, even if localStorage exists
+    checkAuthStatus();
+  }, []);
+
+  const logout = async () => {
+    try {
+      await fetch("http://localhost:3000/logout", {
+        credentials: "include",
       });
+      setUser(null);
+      localStorage.removeItem("user");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
-  const value = { user, setUser, logout };
+  const value = { user, setUser, logout, loading };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}  {/* Wait until auth check completes */}
+    </AuthContext.Provider>
+  );
 }

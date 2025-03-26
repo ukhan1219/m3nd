@@ -33,7 +33,7 @@ const Signup = () => {
 
       const data = await res.json();
       if (res.ok) {
-        navigate("/login");
+        navigate("/dashboard");
       } else {
         setError(data.error || "Registration failed.");
       }
