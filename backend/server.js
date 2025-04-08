@@ -283,6 +283,7 @@ app.get("/logout", (req, res) => {
   });
 });
 
+
 app.post("/analyze-journal", async (req, res) => {
   const { journalText } = req.body;
   if (!journalText) {
@@ -296,11 +297,87 @@ app.post("/analyze-journal", async (req, res) => {
   }
 });
 
+app.post("/journal", ensureAuthenticated, async (req, res) => {
+  const { date, content, analysis } = req.body;
 
-//app.post("/journal", async (req, res) => {
-  //const { }
-//})
+  if (!date || !content) {
+    return res.status(400).json({ error: "Date and content are required." });
+  }
 
+  const journalEntry = {
+    journalId: uuidv4(),
+    userId: req.user.userId || req.user.googleId,
+    date: new Date(date), // stores journal date
+    content,
+    analysis: analysis || (await getTherapeuticAdvice(content)),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  try {
+    await journalCollection.insertOne(journalEntry);
+    res.status(201).json({ message: "Journal created", journalEntry });
+  } catch (error) {
+    console.error("Error creating journal:", error);
+    res.status(500).json({ error: "Failed to create journal entry" });
+  }
+});
+
+app.get("/journal", ensureAuthenticated, async (req, res) => {
+  const userId = req.user.userId || req.user.googleId;
+  const { date, journalId } = req.query;
+
+  const query = { userId };
+  if (journalId) query.journalId = journalId;
+  if (date) {
+    const d = new Date(date);
+    const end = new Date(date);
+    end.setHours(23, 59, 59, 999);
+    query.date = { $gte: d, $lte: end };
+  }
+
+  try {
+    const entries = await journalCollection.find(query).sort({ date: -1 }).toArray();
+    res.json(entries);
+  } catch (error) {
+    console.error("Error fetching journals:", error);
+    res.status(500).json({ error: "Failed to fetch journals" });
+  }
+});
+
+app.get("/journal/:journalId", ensureAuthenticated, async (req, res) => {
+  const userId = req.user.userId || req.user.googleId;
+  const { journalId } = req.params;
+
+  try {
+    const journal = await journalCollection.findOne({ userId, journalId });
+    if (!journal) {
+      return res.status(404).json({ error: "Journal entry not found" });
+    }
+    res.json(journal);
+  } catch (error) {
+    console.error("Error fetching journal:", error);
+    res.status(500).json({ error: "Failed to fetch journal entry" });
+  }
+});
+
+app.get("/journal/date/:date", ensureAuthenticated, async (req, res) => {
+  const userId = req.user.userId || req.user.googleId;
+  const date = new Date(req.params.date);
+  const endOfDay = new Date(date);
+  endOfDay.setHours(23, 59, 59, 999);
+
+  try {
+    const entries = await journalCollection
+      .find({ userId, date: { $gte: date, $lte: endOfDay } })
+      .sort({ date: -1 })
+      .toArray();
+    res.json(entries);
+  } catch (error) {
+    console.error("Error fetching journals by date:", error);
+    res.status(500).json({ error: "Failed to fetch journal entries" });
+  }
+});
 
 // Server initialization
 app.listen(PORT, () => {
