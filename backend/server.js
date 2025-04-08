@@ -297,7 +297,13 @@ app.post("/analyze-journal", async (req, res) => {
 });
 
 
+//app.post("/journal", async (req, res) => {
+  //const { }
+//})
+
+
 // Server initialization
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
