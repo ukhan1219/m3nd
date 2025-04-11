@@ -53,6 +53,13 @@ This repository contains the frontend and backend code for the M3nd application.
             11. Copy the "Your Client ID" and "Your Client Secret" shown and paste them into your `backend/.env` file.
         *   `SESSION_SECRET`: A long, random string used to secure sessions. You can generate one using a tool or `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
         *   `OPENAI_API_KEY`: Your API key from OpenAI.
+            1.  Go to the [OpenAI Platform](https://platform.openai.com/).
+            2.  Sign up for an account or log in if you already have one.
+            3.  Navigate to the "API keys" section in your account settings (usually accessible via the sidebar or user menu).
+            4.  Click on "+ Create new secret key".
+            5.  Give your key a descriptive name (e.g., "M3nd App Key") and click "Create secret key".
+            6.  **Important:** Copy the generated API key immediately and securely store it. You won't be able to see it again after closing the dialog.
+            7.  Paste the copied key into your `backend/.env` file as the value for `OPENAI_API_KEY`.
 
 3.  **Frontend Setup:**
     *   Navigate to the frontend directory:
