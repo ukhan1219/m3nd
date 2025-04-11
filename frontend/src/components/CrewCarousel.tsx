@@ -94,7 +94,7 @@ const CrewCarousel = () => {
     },
     { 
       name: "Lily Vrionis", 
-      role: "Frontend", 
+      role: "Technical Writer", 
       img: lily,
       github: "https://github.com/trogoodkoe",
       linkedin: "https://www.linkedin.com/in/lily-vrionis/",
