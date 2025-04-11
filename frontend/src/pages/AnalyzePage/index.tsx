@@ -1,58 +1,99 @@
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import x from "../../assets/x.svg";
+import { useAuth } from '../../auth/AuthContext';
 
-type PopupProps = {
-  onConfirm: () => void;
-  onCancel: () => void;
-};
-
-function Popup({ onConfirm, onCancel }: PopupProps) {
-  return (
-    <div className="fixed inset-0 bg-darkblue bg-opacity-50 flex items-center justify-center">
-      <div className="bg-pearl p-10 rounded-xl shadow-lg w-96 h-52 text-center border-[3px] border-darkblue">
-        <p className="text-darkblue font-Solway text-xl mb-6">Are you <span className="font-bold underline">SURE</span> you want to discard changes?</p>
-        <div className="flex justify-center gap-4">
-          
-          <button 
-
-            className="bg-darkblue hover:bg-[#A30000] hover:border-[#610000] text-pearl px-5 py-1 rounded-full border-2 border-darkblue font-Dongle text-2xl transition-all duration-300"
-            onClick={onConfirm}
-          >
-            Discard
-          </button>
-          <button 
-            className="bg-pearl hover:bg-lightlavender text-darkblue  px-5 py-1 rounded-full border-2 border-darkblue font-Dongle text-2xl transition-all duration-300"
-            onClick={onCancel}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
+/**
+ * Displays the AI-generated analysis for a specific journal entry.
+ * Fetches the entry by ID and displays the 'analysis' field.
+ * Provides navigation back to the dashboard or to edit the entry.
+ */
 export function AnalyzePage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const selectedDate = new Date(location.state?.date);
-  const [showPopup, setShowPopup] = useState(false);
+  const { user } = useAuth();
 
+  const journalId = location.state?.journalId;
+  const selectedDate = location.state?.date ? new Date(location.state.date) : null;
+
+  const [analysisContent, setAnalysisContent] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  /**
+   * Fetches the specific journal entry using the journalId passed in navigation state.
+   * Sets the analysis content to be displayed.
+   */
+  useEffect(() => {
+    const currentJournalId = location.state?.journalId;
+
+    if (!currentJournalId || !user) {
+        if (!currentJournalId) setError("Error: No journal entry ID provided.");
+        if (!user) setError("Error: User not authenticated.");
+        setIsLoading(false);
+        return;
+    }
+
+    const fetchAnalysis = async () => {
+      setIsLoading(true);
+      setError(null);
+      setAnalysisContent(null);
+
+      try {
+        const response = await fetch(`http://localhost:3000/journal/${currentJournalId}`, {
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+             let errorMsg = `HTTP error! status: ${response.status}`;
+             try { const errorData = await response.json(); errorMsg = errorData.error || errorMsg; } catch (e) {/* Ignore */}
+            throw new Error(errorMsg);
+        }
+
+        const data = await response.json();
+
+        if (data && typeof data.analysis === 'string') {
+          setAnalysisContent(data.analysis);
+        } else if (data && data.analysis === null) {
+            setAnalysisContent("This entry has not been analyzed yet.");
+        } else {
+          console.warn("AnalyzePage: Analysis content missing or not a string:", data?.analysis);
+          setAnalysisContent("Analysis data not found or is invalid for this entry.");
+        }
+
+      } catch (err: any) {
+        console.error('AnalyzePage: Failed to fetch analysis:', err);
+        setError(`Failed to load analysis: ${err.message}. Please try again.`);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAnalysis();
+  }, [location.state?.journalId, user, navigate]); // Depend on the ID from state
+
+  /**
+   * Navigates the user directly back to the dashboard.
+   */
   const handleDiscard = () => {
-    setShowPopup(true);
+    navigate('/dashboard');
   };
 
-  const confirmDiscard = () => {
-    navigate('/dashboard');
-  };
-  const confirmSave = () => {
-    navigate('/dashboard');
-  };
+  /**
+   * Navigates the user back to the JournalPage for the current entry's date.
+   */
   const editEntry = () => {
-    navigate('/journal', { state: { date: selectedDate } });
+    if (selectedDate) {
+        navigate('/journal', { state: { date: selectedDate } });
+    } else {
+        setError("Cannot navigate to edit: Date information missing.");
+    }
   };
 
+  // Render error if journalId is missing
+  if (!journalId) {
+     return <div className="p-8 text-center text-red-500">Error: Missing required journal information. Please return to the dashboard.</div>;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center w-full bg-lavender max-[820px]:items-center min-h-[calc(100vh-10rem)] sm:py-12 px-6 max-[473px]:px-0 max-sm:pt-20 sm:pt-32 pb-6">
@@ -60,6 +101,7 @@ export function AnalyzePage() {
         <button
           className="absolute max-[473px]:top-2 max-[473px]:right-2  top-4 right-4 p-2  text-darkblue text-2xl font-bold cursor-pointer"
           onClick={handleDiscard}
+          aria-label="Return to dashboard"
         >
           <img
             src={x}
@@ -69,28 +111,28 @@ export function AnalyzePage() {
         </button>
 
         <h1 className="text-3xl font-bold py-3 text-center text-darkblue font-Solway">
-          Entry Analysis for {selectedDate?.toLocaleDateString()}
+          Entry Analysis {selectedDate ? `for ${selectedDate.toLocaleDateString()}` : ''}
         </h1>
 
-        <div className="w-full h-80 md:h-96 p-4 mt-4 border-[2.5px] border-lightblue rounded-2xl bg-lightlavender text-darkblue font-Sora font-bold text-left text-lg placeholder-midblue placeholder-opacity-60 transition-all">
-            Analyzing...
-        </div>
+        {isLoading && <p className="text-center text-midblue p-4">Loading analysis...</p>}
+
+        {error && <p className="text-center text-red-500 bg-red-100 p-3 rounded-md my-2">{error}</p>}
+
+        {!isLoading && !error && (
+             <div className="w-full min-h-80 md:min-h-96 p-4 mt-4 border-[2.5px] border-lightblue rounded-2xl bg-lightlavender text-darkblue font-Sora font-normal text-left text-lg whitespace-pre-wrap overflow-y-auto">
+                {analysisContent || "No analysis available."}
+            </div>
+        )}
 
         <div className="flex justify-center items-center gap-4 mt-6">
-          <button onClick={confirmSave}
-            className="bg-midblue hover:bg-darkblue text-pearl font-semibold font-Sora px-8 py-4 rounded-full max-[473px]:px-6 max-[473px]:py-2 border-2 text-lg border-darkblue transition-all duration-300 shadow-md max-[473px]:text-md"
-          >
-            Save Analysis
-          </button>
           <button onClick={editEntry}
-            className="bg-pearl hover:bg-lightlavender text-darkblue font-semibold font-Sora px-8 py-4 rounded-full max-[473px]:px-6 max-[473px]:py-2 text-lg border-2 border-darkblue transition-all duration-300 shadow-md max-[473px]:text-md"
+            disabled={!selectedDate || isLoading}
+            className="bg-pearl hover:bg-lightlavender text-darkblue font-semibold font-Sora px-8 py-4 rounded-full max-[473px]:px-6 max-[473px]:py-2 text-lg border-2 border-darkblue transition-all duration-300 shadow-md max-[473px]:text-md disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Edit Entry
           </button>
         </div>
       </div>
-
-      {showPopup && <Popup onConfirm={confirmDiscard} onCancel={() => setShowPopup(false)} />}
     </div>
   );
 }

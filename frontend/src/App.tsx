@@ -14,8 +14,8 @@ import LandingPage from "./pages/LandingPage"
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import Dashboard from "./pages/Dashboard";
-import JournalPage from "./pages/JournalPage";
-import AnalyzePage from "./pages/AnalyzePage";
+import { JournalPage } from "./pages/JournalPage";
+import { AnalyzePage } from "./pages/AnalyzePage";
 import ProtectedRoute from "./auth/ProtectedRoute";
 
 function App() {
