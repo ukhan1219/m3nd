@@ -7,7 +7,11 @@ import linkedin from '../assets/linkedIn.svg'
 import email from '../assets/email.svg'
 import left from '../assets/left.svg'
 import right from '../assets/right.svg'
-import headshot from '../assets/headshot.jpg'
+import usman from '../assets/usman.jpg'
+import shin from '../assets/shin.jpg'
+import mel from '../assets/mel.jpg'
+import powa from '../assets/powa.jpg'
+import lily from '../assets/lily.jpg'
 
 
 interface CustomArrowProps {
@@ -67,15 +71,15 @@ const CrewCarousel = () => {
     { 
       name: "Usman Khan", 
       role: "AI + Lead Backend", 
-      img: headshot,
+      img: usman,
       github: "https://github.com/ukhan1219",
       linkedin: "https://www.linkedin.com/in/khanu/",
-      email: "mailto:usman@usmankhan.dev"
+      email: "mailto:us785487@ucf.edu"
     },
     { 
       name: "Thashin Bhuiyan", 
       role: "UX/UI + Lead Frontend", 
-      img: headshot,
+      img: shin,
       github: "https://github.com/thashin04",
       linkedin: "https://www.linkedin.com/in/thashin04/b",
       email: "mailto:thashinbhuiyan04@gmail.com"
@@ -83,15 +87,15 @@ const CrewCarousel = () => {
     { 
       name: "Melanie Dinh", 
       role: "Frontend", 
-      img: headshot,
+      img: mel,
       github: "https://github.com/miosona",
       linkedin: "https://www.linkedin.com/in/melanie-dinh/",
-      email: "mailto:mel@example.com"
+      email: "mailto:me492020@ucf.edu"
     },
     { 
       name: "Lily Vrionis", 
       role: "Frontend", 
-      img: headshot,
+      img: lily,
       github: "https://github.com/trogoodkoe",
       linkedin: "https://www.linkedin.com/in/lily-vrionis/",
       email: "mailto:lsvrionis@gmail.com"
@@ -99,10 +103,10 @@ const CrewCarousel = () => {
     { 
       name: "Jonathan Tsui", 
       role: "Backend", 
-      img: headshot,
+      img: powa,
       github: "https://github.com/powakick",
-      linkedin: "https://linkedin.com/in/powa",
-      email: "mailto:powa@example.com"
+      linkedin: "https://www.linkedin.com/in/jonathan--tsui/",
+      email: "mailto:Jonathan.tsui2317@gmail.com"
     },
   ];
 

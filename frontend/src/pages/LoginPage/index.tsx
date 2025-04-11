@@ -51,7 +51,7 @@ const LogIn = () => {
         <h2 className="text-3xl font-extrabold text-center text-darkblue mb-4">Log in</h2>
         <button
           onClick={handleGoogleLogin}
-          className="w-full bg-[#F2F2F2] text-darkblue font-semibold py-2 rounded-full border-2 mb-4 hover:shadow-lg transition flex items-center justify-center">
+          className="w-full bg-[#F2F2F2] text-darkblue font-semibold py-1.5 rounded-full border-2 mb-4 hover:shadow-lg transition flex items-center justify-center">
           <img src={Google} alt="Google" className="mr-2" />
           Log in with Google
         </button>
@@ -63,7 +63,7 @@ const LogIn = () => {
         
         <form onSubmit={handleSubmit} className="flex flex-col">
           <div className="pb-2">
-            <p className="text-darkblue font-Dongle text-3xl">Email</p>
+            <p className="text-darkblue font-Dongle text-left text-3xl">Email</p>
             <input 
               type="email" 
               placeholder="Email" 
@@ -72,7 +72,7 @@ const LogIn = () => {
               className="w-full p-2 border-2 border-lightblue bg-lightlavender font-Sora rounded-xl text-darkblue" 
             />
           </div>
-          <p className="text-darkblue font-Dongle text-3xl">Password</p>
+          <p className="text-darkblue font-Dongle text-left text-3xl">Password</p>
           <div className="relative w-full pb-2">
             <input 
               type={showPassword ? "text" : "password"} 

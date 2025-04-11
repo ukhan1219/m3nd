@@ -44,7 +44,7 @@ const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
   const hasEntry = (date: Date) =>
      entries.some((entry) => new Date(entry).toDateString() === date.toDateString()); 
   return (
-    <div className="flex flex-col md:flex-row bg-lavender max-[473px]:bg-midblue justify-center max-[820px]:items-center min-h-[calc(100vh-10rem)] max-[473px]:p-0  max-[375px]:p-0 md:p-12 shadow-lg max-sm:pt-24 max-md:pb-12 sm:pt-32 md:pt-28 max-[473px]:pt-20">
+    <div className="flex flex-col md:flex-row bg-lavender max-[473px]:bg-midblue justify-center max-[820px]:items-center min-h-[calc(100vh-10rem)] max-[473px]:px-0  max-[375px]:px-0 md:p-12 shadow-lg max-sm:pt-24 max-md:pb-12 sm:pt-32 md:pt-28 max-[473px]:pt-20">
       <div className="flex flex-col md:flex-row max-[475px]:w-full w-auto max-[473px]:bg-pearl rounded-xl border-[3px] max-[473px]:border-none max-[473px]:rounded-none border-darkblue overflow-hidden shadow-md md:max-h-[40rem] max-md:max-h-[44rem]">
         <div className="bg-midblue text-pearl text-left p-6 md:w-4/12 lg:w-1/3">
           <div>
@@ -73,7 +73,7 @@ const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 
           <div className="flex items-center justify-between mb-4">
             <select
-              className="bg-pearl text-darkblue text-lg font-semibold font-Sora p-0 rounded-md"
+              className="bg-pearl text-darkblue text-lg font-semibold font-Sora p-0 rounded-md w-auto inline-block min-w-0"
               value={`${currentDate.getFullYear()}-${currentDate.getMonth()}`}
               onChange={handleMonthChange}
             >
