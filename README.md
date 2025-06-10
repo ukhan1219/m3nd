@@ -5,6 +5,10 @@
 
 This repository contains the frontend and backend code for the M3nd application. The backend is built with Node.js, Express, React, and MongoDB, handling user authentication (local and Google OAuth), journal entries, and interactions with the OpenAI API. The frontend is a React application built with Vite.
 
+UX/UI - Thashin
+Frontend devs - Thashin and Melanie
+Backend devs - Usman and Jonathan
+
 ## Prerequisites
 
 *   Node.js (LTS version recommended)
