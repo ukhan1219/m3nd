@@ -15,7 +15,7 @@ Mend is a full-stack digital journaling application designed to provide a safe, 
 
 ## 🚀 Project Purpose & Motivation
 
-Mend was born from a desire to support individuals who face a stigma around mental health. For many, including myself, family or cultural environments can be unsupportive of traditional therapy, creating barriers to getting help. Mend was created to bridge this gap, offering a first step into mental wellness in a private and non-judgmental way.
+Mend was born from a desire to support individuals who face a stigma around mental health. For many, including us, family or cultural environments can be unsupportive of traditional therapy, creating barriers to getting help. Mend was created to bridge this gap, offering a first step into mental wellness in a private and non-judgmental way.
 
 The core idea is to provide friendly, AI-driven feedback that feels like talking to a compassionate friend, not a licensed therapist. We hope that by using Mend to articulate their feelings and receive positive reinforcement, users will feel more comfortable and prepared to seek professional therapy when they are ready.
 
